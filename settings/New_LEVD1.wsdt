@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>New_LEVD1/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>222</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>980</ColumnWidth1><ColumnWidth2>261</ColumnWidth2><ColumnWidth3>65</ColumnWidth3></Build>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1307</ColumnWidth1></Debug-Log>
+      <TerminalIO/>
+    <Find-in-Files><ColumnWidth0>470</ColumnWidth0><ColumnWidth1>67</ColumnWidth1><ColumnWidth2>806</ColumnWidth2></Find-in-Files><Disassembly><MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow></Disassembly></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-24774-29292</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>New_LEVD1</ExpandedNode><ExpandedNode>New_LEVD1/SOC</ExpandedNode><ExpandedNode>New_LEVD1/SystemInitialData</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-31403-29782</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-32584-26449</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-32023-20975</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab><Tab><Identity>TabID-13193-11616</Identity><TabName>Breakpoints</TabName><Factory>Breakpoints</Factory></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\SystemInitialData\SystemConfigInitial.s43</Filename><XPos>0</XPos><YPos>39</YPos><SelStart>1640</SelStart><SelEnd>1640</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\LEVD1_Main.c</Filename><XPos>0</XPos><YPos>548</YPos><SelStart>18691</SelStart><SelEnd>18691</SelEnd></Tab><ActiveTab>1</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\SystemInitialData\ADC_Factor_Config.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>790</SelStart><SelEnd>790</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\SystemInitialData\SystemInformation.h</Filename><XPos>0</XPos><YPos>26</YPos><SelStart>2005</SelStart><SelEnd>2005</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\LEV_CommonDefine.h</Filename><XPos>0</XPos><YPos>63</YPos><SelStart>2835</SelStart><SelEnd>2835</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TimerA.c</Filename><XPos>0</XPos><YPos>230</YPos><SelStart>8857</SelStart><SelEnd>8857</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>54</YPos><SelStart>1562</SelStart><SelEnd>1562</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\LEV_PrjDefine.h</Filename><XPos>0</XPos><YPos>85</YPos><SelStart>3385</SelStart><SelEnd>3385</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-00f902c8><key>iaridepm.enu1</key></Toolbar-00f902c8></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>462</Bottom><Right>313</Right><x>-2</x><y>-2</y><xscreen>367</xscreen><yscreen>229</yscreen><sizeHorzCX>268668</sizeHorzCX><sizeHorzCY>333819</sizeHorzCY><sizeVertCX>230600</sizeVertCX><sizeVertCY>676385</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>179</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>181</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>263848</sizeHorzCY><sizeVertCX>268668</sizeVertCX><sizeVertCY>333819</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

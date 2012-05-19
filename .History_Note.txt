@@ -1,0 +1,27 @@
+
+2012/05/04 	Rebuild this Project, from New_LEVD1_V4_2ndRelease_ Project
+		The Project is for LEV D1 36V
+2012/05/04 	remove T2 Adc comparation from LEVD1_Main.c
+2012/05/07	Normal function finish (init->normal-> shutdown)
+2012/05/07	Suspend Mode finish (ADC OFF in suspend)
+2012/05/07	ADC OFF in Normal (modify ADC function)
+
+Ver 4
+2012/05/07	Remove OC Protection Function
+2012/05/07	add SOC by table Function
+2012/05/08	Modify Button function (press, release, long press)
+2012/05/08	ADD capacity display function
+2012/05/08	modify config
+2012/05/08	[BUG] temperature can not release ==> remove T2 adc compare
+2012/05/09	Add I2C Slave cmd 0xd6 for showing information data
+
+Ver 5
+2012/05/10	[BUG] modify I2C Slave being wroten a byte and multi-bytes 
+
+Ver 6
+2012/05/10	Remove shipping mode
+2012/05/10	Add Coulomb Counter function
+Ver 7
+2012/05/16	take COC protection function back
+Ver 8
+2012/05/18	Remove CV-Mode Control function

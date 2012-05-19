@@ -1,0 +1,105 @@
+
+#include "SystemInformation.h"
+#include "ADC_Factor_Config.h"
+           
+////////////////////////////////////////////////////////////
+//  LEV System Information
+////////////////////////////////////////////////////////////
+        ORG     Flash_segment_B
+        
+        ; LEV Information
+//        DW _VERSION_		                  
+//        DW _MINOR_VERSION_		            
+//        DW _SERIAL_NUMBER_                
+//        DW _MANUFACTURE_DATE_             
+
+        DW _RESREVE1_
+        
+        DW _DETECT_CURRENT_OF_DSG_STATUS_ 
+        DW _DETECT_CURRENT_OF_CHG_STATUS_ 
+        
+//////////////////////////////////////////////////////////////////////////////
+        DB _OC_PROTECTION_RELEASE_TIME_ 
+        DB _NO_DEFINE_
+        DW _DOC_PROTECTION_               
+        DW _COC_PROTECTION_
+// 2012/05/07 ADD SOC FUNCTION, hsinmo
+        DW _SOC_1st_CELL_OV_VOLTAGE_
+        DW _SOC_1st_CELL_UV_VOLTAGE_
+
+
+        DW __2ND_BATTERY_OV_PROTECTION_    
+        DW __2ND_BATTERY_UV_PROTECTION_    
+        DW  _DSG_OT_PROTECTION_VOLTAGE_           
+        DW  _DSG_OT_RELEASE_VOLTAGE_              
+        DW  _CHG_OT_PROTECTION_VOLTAGE_           
+        DW  _CHG_OT_RELEASE_VOLTAGE_              
+        DW  _UT_PROTECTION_VOLTAGE_               
+        DW  _UT_RELEASE_VOLTAGE_   
+        
+        DB _BUTTON_PRESS_TIME_
+        
+        DB _WAKE_UP_TIME_FROM_SUSPEND_MODE_
+        DW _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_
+        
+        DW _CHG_CV_MODE_LIMIT_VOLTAGE_
+        DW _CHG_CV_MODE_RELEASE_WAIT_TIME_
+        DW _CHG_CV_MODE_REPEATING_CYCLE_
+        
+       
+        DF _DSG_mA_to_ADC_factor_
+        DF _CHG_mA_to_ADC_factor_
+        DF _VBAT_10mV_To_ADC_Factor_
+
+        DW __2ND_BATTERY_OV_RELEASE_    
+        DW __2ND_BATTERY_UV_RELEASE_    
+
+        DW _CYCLECOUNT_DSG_CAP_THRESHOLD_    
+        DW _CYCLECOUNT_FOR_CHG_LEVEL_1_   
+        DW _CYCLECOUNT_FOR_CHG_LEVEL_2_
+
+
+#if 0            
+        ; TEST  Information
+        ORG     Flash_segment_C
+        
+        DW _DOC_PROTECTION_               
+        DW _COC_PROTECTION_               
+        DW _2ND_BATTERY_OV_PROTECTION_    
+        DW _2ND_BATTERY_UV_PROTECTION_    
+        DW _DSG_OT_PROTECTION_            
+        DW _DSG_OT_RELEASE_               
+        DW _CHG_OT_PROTECTION_            
+        DW _CHG_OT_RELEASE_
+        
+        
+        DW _DOC_PROTECTION_               
+        DW _COC_PROTECTION_               
+        DW _2ND_BATTERY_OV_PROTECTION_    
+        DW _2ND_BATTERY_UV_PROTECTION_    
+        DW _DSG_OT_PROTECTION_            
+        DW _DSG_OT_RELEASE_               
+        DW _CHG_OT_PROTECTION_            
+        DW _CHG_OT_RELEASE_               
+        
+        DW _DOC_PROTECTION_               
+        DW _COC_PROTECTION_               
+        DW _2ND_BATTERY_OV_PROTECTION_    
+        DW _2ND_BATTERY_UV_PROTECTION_    
+        DW _DSG_OT_PROTECTION_            
+        DW _DSG_OT_RELEASE_               
+        DW _CHG_OT_PROTECTION_            
+        DW _CHG_OT_RELEASE_               
+        
+        DW _DOC_PROTECTION_               
+        DW _COC_PROTECTION_               
+        DW _2ND_BATTERY_OV_PROTECTION_    
+        DW _2ND_BATTERY_UV_PROTECTION_    
+        DW _DSG_OT_PROTECTION_            
+        DW _DSG_OT_RELEASE_               
+        DW _CHG_OT_PROTECTION_            
+        DW _CHG_OT_RELEASE_               
+
+#endif
+        END
+
