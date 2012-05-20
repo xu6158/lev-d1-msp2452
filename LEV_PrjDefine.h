@@ -7,8 +7,6 @@
 
 
 //extern unsigned char gTempChar64[64];
-#define NUMBER_OF_PARALLEL_CELLS            4
-#define NUMBER_OF_SERIES_CELLS              10
 
 
 /***********************************************************\

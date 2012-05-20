@@ -22,43 +22,73 @@
 #define PRODUCT_NAME            "LEV"
 #define PRODUCT_NAME_LENGTH     3
 
-#define VERSION		                          1
-#define MINOR_VERSION		                    0
-#define SERIAL_NUMBER                       1
-#define MANUFACTURE_DATE                    (MANUFACTURE_DATE_YEAR - 1980) * 512 + MANUFACTURE_DATE_MONTH * 32 + MANUFACTURE_DATE_DAY
+#define Serial_Number                       1
+#define Version		                          1
+#define MinorVersion		                    0
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // LEV System Initial config Data
 // Used by SystemConfigInitialData.s43 to save into Flash Memory while downloading code into MCU
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-//#define _VERSION_		                          1
-//#define _MINOR_VERSION_		                    0
-//#define _SERIAL_NUMBER_                       1
-//#define _MANUFACTURE_DATE_                    (MANUFACTURE_DATE_YEAR - 1980) * 512 + MANUFACTURE_DATE_MONTH * 32 + MANUFACTURE_DATE_DAY
+#define _SERIAL_NUMBER_                       Serial_Number     //2 bytes
 
-#define _RESREVE1_                            0       //2bytes
+#define _NUMBER_OF_PARALLEL_CELLS_            4                 //1 byte
+#define _NUMBER_OF_SERIES_CELLS_              10                //1 byte
+      
+//=====================================================================================================================
+// CHG / DSG Current Detector (op amp)
+////////////////////////////////////////////////////////////////////////////////
+//ADC_resolution  1024    // 10 bit ADC
+//ADC_Ref         2500    // mV
+//ADC_Step        2.44140625f  ==>(float)ADC_Ref /  ADC_resolution ==> (mV)
+////////////////////////////////////////////////////////////////////////////////
+//Rsense                  3.3333f    //mR
+////////////////////////////////////////////////////////////////////////////////
+//mA to ADC factor 
+//Factor = Rsense(R) * op_gain / ADC step(mV) => Multiplicative inverse Factor
+////////////////////////////////////////////////////////////////
+// CHG_OP_Gain             68.0f
+// _CHG_mA_to_ADC_factor_    0.09270f   ==> (Rsense * CHG_OP_Gain / ADC_Step / 1000)==>小數點6位
+// _CHG_10mA_to_ADC_factor_  0.9270f   ==> CHG_mA_to_ADC_factor * 10
+// CHG_OP_ADC_OFFSET         (signed char)0    //實際值-理論值 
+////////////////////////////////////////////////////////////////
+// DSG_OP_Gain   68.0f
+// _DSG_mA_to_ADC_factor_      0.0927f  ==> (Rsense*DSG_OP_Gain/ADC_Step/1000)==>小數點6位
+// _DSG_10mA_to_ADC_factor_    0.927f  ==> DSG_mA_to_ADC_factor * 10
+// DSG_OP_ADC_OFFSET         (signed char)0    //實際值-理論值 
+////////////////////////////////////////////////////////////////////////////////
+//(無條件進位==> 會比實際值還大一點)
+//(使用四捨五入)
+#define _ADC_DETECT_CURRENT_OF_DSG_STATUS_     5      //53mA; unit: mA; 2bytes; if current > the define, in discharging status
+#define _ADC_DETECT_CURRENT_OF_CHG_STATUS_     10     //107mA; unit: mA; 2bytes; if current > the define, in charging status
+#define _ADC_DOC_PROTECTION_                   1854   // 20A; unit: 10mA; discharging current protection is positive
+#define _ADC_COC_PROTECTION_                   464    // 5A; unit: 10mA; charging current protection
 
-#define _DETECT_CURRENT_OF_DSG_STATUS_        100       //500mA; unit: mA; if current > the define, in discharging status
-#define _DETECT_CURRENT_OF_CHG_STATUS_        100       //500mA; unit: mA; if current > the define, in charging status
-
-//////////////////////////////////////////////////////////////////////////////
-#define _OC_PROTECTION_RELEASE_TIME_          5         // 5 sec; unit: sec.; 1byte; over current protection release time
-#define _NO_DEFINE_                           0         // ; 1byte; 
-
-#define _DOC_PROTECTION_                      2000      // 20A; unit: 10mA; discharging current protection is positive
-#define _COC_PROTECTION_                      500       // 5A; unit: 10mA; charging current protection
-
-// 2012/05/07 ADD SOC FUNCTION, hsinmo
-#define _SOC_1st_CELL_OV_VOLTAGE_     4250 //mV, hw 4250
-#define _SOC_1st_CELL_UV_VOLTAGE_     2700 //mV, hw 2500
-
-
-#define __2ND_BATTERY_OV_PROTECTION_          4350      // 54.6V; unit: 10mV; 2nd level BATTERY OV PROTECTION
-#define __2ND_BATTERY_OV_RELEASE_             4250      // 54.6V; unit: 10mV; 2nd level BATTERY OV RELEASE
-#define __2ND_BATTERY_UV_PROTECTION_          2700      // 39.0V; unit: 10mV; 2nd level BATTERY UV PROTECTION
-#define __2ND_BATTERY_UV_RELEASE_             2800      // 39.0V; unit: 10mV; 2nd level BATTERY UV RELEASE
-
+//=====================================================================================================================
+// Battery Voltage circuit and setting
+////////////////////////////////////////////////////////////////
+//    Battery |------Resistor1----+---Resistor2-----|GND
+//    Vltage  |       1000KR      |   43.2KR
+//                                |
+//                                |
+//                       voltage output 
+//                       to MCU ADC in
+////////////////////////////////////////////////////////////////
+//VBAT_Resistor1            1000 //kR
+//VBAT_Resistor2            43.0f //kR
+//VBAT_mV_To_ADC_Factor    (float)1/((VBAT_Resistor1+VBAT_Resistor2)/VBAT_Resistor2*ADC_Step)==>小數點6位
+//ADC_Step        2.44140625f //  mv/step
+// _VBAT_mV_To_ADC_Factor_      0.01694f
+// _VBAT_10mV_To_ADC_Factor_    0.1694f   // VBAT_mV_To_ADC_Factor * 10
+//VBAT_ADC_OFFSET          (signed char)(-5)   //實際值-理論值      
+////////////////////////////////////////////////////////////////
+#define _ADC_2ND_BATTERY_OV_PROTECTION_       737 // 43.50V; unit: 10mV; 2bytes; 2nd level BATTERY OV PROTECTION
+#define _ADC_2ND_BATTERY_OV_RELEASE_          720 // 42.50V; unit: 10mV; 2bytes; 2nd level BATTERY OV RELEASE
+#define _ADC_2ND_BATTERY_UV_PROTECTION_       457 // 27.00V; unit: 10mV; 2bytes; 2nd level BATTERY UV PROTECTION
+#define _ADC_2ND_BATTERY_UV_RELEASE_          474 // 28.00V; unit: 10mV; 2bytes; 2nd level BATTERY UV RELEASE 
 
 //=====================================================================================================================
 // NTC Thermistor setting by voltage
@@ -83,25 +113,31 @@
 //75					1.9538		539.37
 //80					1.698			479
 //85					1.4805		425.56
+//////////////////////////////////////////////////////////////////
+//Thermistor_mV_To_ADC_Factor     0.4096f   // = 1/ADC_Step
 //=====================================================================================================================
-#define  _DSG_OT_PROTECTION_VOLTAGE_                  607         //unit: mV; 70 Celcius; Over temperature protection for discharging
-#define  _DSG_OT_RELEASE_VOLTAGE_                     684        //unit: mV; 65 Celcius; Over temperature release for discharging
-#define  _CHG_OT_PROTECTION_VOLTAGE_                  971         //unit: mV; 50 Celcius; Over temperature protection for charging
-#define  _CHG_OT_RELEASE_VOLTAGE_                     1087        //unit: mV; 45 Celcius; Over temperature release for charging
-#define  _UT_PROTECTION_VOLTAGE_                      2417        //unit: mV; 0 Celcius;  Under temperature protection
-#define  _UT_RELEASE_VOLTAGE_                         2272        //unit: mV; 5 Celcius;  Under temperature release
+#define _ADC_DSG_OT_PROTECTION_            249    //unit: 607 mV; 70 Celcius; Over temperature protection for discharging(Low divided voltage)
+#define _ADC_DSG_OT_RELEASE_               280    //unit: 684 mV; 65 Celcius; Over temperature release for discharging(Low divided voltage)
+#define _ADC_CHG_OT_PROTECTION_            398    //unit: 971 mV; 50 Celcius; Over temperature protection for charging(Low divided voltage)
+#define _ADC_CHG_OT_RELEASE_               445    //unit: 1087 mV; 45 Celcius; Over temperature release for charging(Low divided voltage)
+#define _ADC_UT_PROTECTION_                990    //unit: 2417 mV; 0 Celcius;  Under temperature protection(Low divided voltage)
+#define _ADC_UT_RELEASE_                   931    //unit: 2272 mV; 5 Celcius;  Under temperature release(Low divided voltage)
+
+//////////////////////////////////////////////////////////////////////////////
 //=====================================================================================================================
+#define _OC_PROTECTION_RELEASE_TIME_          5         // 5 sec; unit: sec.; 1byte; over current protection release time
 #define _BUTTON_PRESS_TIME_                   5         // 5 sec; unit: sec.; 1byte; button press delay time
 //=====================================================================================================================
+#define _NO_DEFINE_                           0         // ; 1byte; 
+
 // Sleep (suspend) Mode Var
 #define _WAKE_UP_TIME_FROM_SUSPEND_MODE_          2 // 5 second; unit: sec.; 1byte; Wake Up Times from Suspending mode
 #define _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_   60 // second; unit: sec.; 2byte; into SUSPEND_MODE time at first
 //=====================================================================================================================
-#define _CHG_CV_MODE_LIMIT_VOLTAGE_         4800      // 50V; unit: 10mV; CV_Mode in CHG for High Limit Voltage
-#define _CHG_CV_MODE_RELEASE_WAIT_TIME_     10        // 10 sec; unit: sec.; 2byte; CV_Mode in CHG for voltage release waiting time
-#define _CHG_CV_MODE_REPEATING_CYCLE_       10        // 10 times/cycle; unit: times; 2byte; CV_Mode in CHG
 //=====================================================================================================================
-//#define _WAKE_UP_TIME_FROM_SHIP_MODE_      5        // 10 second; unit: sec.; 2byte; Wake Up Times from Shipping mode
+#define _SOC_CELL_OV_VOLTAGE_             4150 //mV, PIC/ hw 4250
+#define _SOC_CELL_UV_VOLTAGE_             2700 //mV, PIC/ hw 2500
+
 //=====================================================================================================================
 // SOC Cycle Count
 #define _CYCLECOUNT_DSG_CAP_THRESHOLD_              9360        // 2600*4*0.9; unit: maH.; 2byte; Cycle Count Threshold for total DSG capacity
@@ -110,115 +146,68 @@
 //=====================================================================================================================
 
 
+#define SERIAL_NUMBER_offset                              0 	// 2 bytes
+#define NUMBER_OF_PARALLEL_CELLS_offset                   2 	// 1 bytes
+#define NUMBER_OF_SERIES_CELLS_offset                     3 	// 1 bytes
+#define ADC_DETECT_CURRENT_OF_DSG_STATUS_offset           4 	// 2 bytes
+#define ADC_DETECT_CURRENT_OF_CHG_STATUS_offset           6 	// 2 bytes
+#define ADC_DOC_PROTECTION_offset                         8 	// 2 bytes
+#define ADC_COC_PROTECTION_offset                         10 	// 2 bytes
+#define ADC_2ND_BATTERY_OV_PROTECTION_offset              12 	// 2 bytes
+#define ADC_2ND_BATTERY_OV_RELEASE_offset                 14 	// 2 bytes
+#define ADC_2ND_BATTERY_UV_PROTECTION_offset              16 	// 2 bytes
+#define ADC_2ND_BATTERY_UV_RELEASE_offset                 18 	// 2 bytes
+#define ADC_DSG_OT_PROTECTION_offset                      20 	// 2 bytes
+#define ADC_DSG_OT_RELEASE_offset                         22 	// 2 bytes
+#define ADC_CHG_OT_PROTECTION_offset                      24 	// 2 bytes
+#define ADC_CHG_OT_RELEASE_offset                         26 	// 2 bytes
+#define ADC_UT_PROTECTION_offset                          28 	// 2 bytes
+#define ADC_UT_RELEASE_offset                             30 	// 2 bytes
+#define OC_PROTECTION_RELEASE_TIME_offset                 32 	// 1 bytes
+#define BUTTON_PRESS_TIME_offset                          33 	// 1 bytes
+#define NO_DEFINE_offset                                  34 	// 1 bytes
+#define WAKE_UP_TIME_FROM_SUSPEND_MODE_offset             35 	// 1 bytes
+#define FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_offset      36 	// 2 bytes
+#define SOC_CELL_OV_VOLTAGE_offset                        38 	// 2 bytes
+#define SOC_CELL_UV_VOLTAGE_offset                        40 	// 2 bytes
+#define CYCLECOUNT_DSG_CAP_THRESHOLD_offset               42 	// 2 bytes
+#define CYCLECOUNT_FOR_CHG_LEVEL_1_offset                 44 	// 2 bytes
+#define CYCLECOUNT_FOR_CHG_LEVEL_2_offset                 46 	// 2 bytes
 
 
-//////////////////////////////////////////////////////////////////////////////////////
-//  Define flash Data address offset (range: 0~ 32 bytes)
-//  the offset order below is followed by SystemConfigInitialData.s43 data order
-//////////////////////////////////////////////////////////////////////////////////////
-//#define VERSION_offset                          0 
-//#define MINOR_VERSION_offset                    2 
-//#define SERIAL_NUMBER_offset                    4 
-//#define MANUFACTURE_DATE_offset                 6
 
-#define RESREVE1_offset                         0
-
-#define DETECT_CURRENT_OF_DSG_STATUS_offset     2 
-#define DETECT_CURRENT_OF_CHG_STATUS_offset     4
-
-#define OC_PROTECTION_RELEASE_TIME_offset       6  //;1byte
-#define NO_DEFINE_offset                        7  //;1byte
-#define DOC_PROTECTION_offset                   8
-#define COC_PROTECTION_offset                   10
-// 2012/05/07 ADD SOC FUNCTION, hsinmo
-#define SOC_1st_CELL_OV_VOLTAGE_offset          12
-#define SOC_1st_CELL_UV_VOLTAGE_offset          14
-
-
-#define _2ND_BATTERY_OV_PROTECTION_offset       16
-#define _2ND_BATTERY_UV_PROTECTION_offset       18
-#define DSG_OT_PROTECTION_VOLTAGE_offset        20
-#define DSG_OT_RELEASE_VOLTAGE_offset           22
-#define CHG_OT_PROTECTION_VOLTAGE_offset        24
-#define CHG_OT_RELEASE_VOLTAGE_offset           26
-#define UT_PROTECTION_VOLTAGE_offset            28
-#define UT_RELEASE_VOLTAGE_offset               30
-#define BUTTON_PRESS_TIME_offset                        32  //;1byte
-// Sleep (suspend) Mode Var
-#define _WAKE_UP_TIME_FROM_SUSPEND_MODE_offset          33 //1byte;
-#define _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_offset   34 //2byte;
+#define SERIAL_NUMBER                             *((unsigned int *)(CONFIG_SEGMENT + SERIAL_NUMBER_offset                        ))  // 2 bytes
+#define NUMBER_OF_PARALLEL_CELLS                  *((unsigned char *)(CONFIG_SEGMENT + NUMBER_OF_PARALLEL_CELLS_offset             ))  // 1 bytes
+#define NUMBER_OF_SERIES_CELLS                    *((unsigned char *)(CONFIG_SEGMENT + NUMBER_OF_SERIES_CELLS_offset               ))  // 1 bytes
+#define ADC_DETECT_CURRENT_OF_DSG_STATUS          *((unsigned int *)(CONFIG_SEGMENT + ADC_DETECT_CURRENT_OF_DSG_STATUS_offset     ))  // 2 bytes
+#define ADC_DETECT_CURRENT_OF_CHG_STATUS          *((unsigned int *)(CONFIG_SEGMENT + ADC_DETECT_CURRENT_OF_CHG_STATUS_offset     ))  // 2 bytes
+#define ADC_DOC_PROTECTION                        *((unsigned int *)(CONFIG_SEGMENT + ADC_DOC_PROTECTION_offset                   ))  // 2 bytes
+#define ADC_COC_PROTECTION                        *((unsigned int *)(CONFIG_SEGMENT + ADC_COC_PROTECTION_offset                   ))  // 2 bytes
+#define ADC_2ND_BATTERY_OV_PROTECTION             *((unsigned int *)(CONFIG_SEGMENT + ADC_2ND_BATTERY_OV_PROTECTION_offset        ))  // 2 bytes
+#define ADC_2ND_BATTERY_OV_RELEASE                *((unsigned int *)(CONFIG_SEGMENT + ADC_2ND_BATTERY_OV_RELEASE_offset           ))  // 2 bytes
+#define ADC_2ND_BATTERY_UV_PROTECTION             *((unsigned int *)(CONFIG_SEGMENT + ADC_2ND_BATTERY_UV_PROTECTION_offset        ))  // 2 bytes
+#define ADC_2ND_BATTERY_UV_RELEASE                *((unsigned int *)(CONFIG_SEGMENT + ADC_2ND_BATTERY_UV_RELEASE_offset           ))  // 2 bytes
+#define ADC_DSG_OT_PROTECTION                     *((unsigned int *)(CONFIG_SEGMENT + ADC_DSG_OT_PROTECTION_offset                ))  // 2 bytes
+#define ADC_DSG_OT_RELEASE                        *((unsigned int *)(CONFIG_SEGMENT + ADC_DSG_OT_RELEASE_offset                   ))  // 2 bytes
+#define ADC_CHG_OT_PROTECTION                     *((unsigned int *)(CONFIG_SEGMENT + ADC_CHG_OT_PROTECTION_offset                ))  // 2 bytes
+#define ADC_CHG_OT_RELEASE                        *((unsigned int *)(CONFIG_SEGMENT + ADC_CHG_OT_RELEASE_offset                   ))  // 2 bytes
+#define ADC_UT_PROTECTION                         *((unsigned int *)(CONFIG_SEGMENT + ADC_UT_PROTECTION_offset                    ))  // 2 bytes
+#define ADC_UT_RELEASE                            *((unsigned int *)(CONFIG_SEGMENT + ADC_UT_RELEASE_offset                       ))  // 2 bytes
+#define OC_PROTECTION_RELEASE_TIME                *((unsigned char *)(CONFIG_SEGMENT + OC_PROTECTION_RELEASE_TIME_offset           ))  // 1 bytes
+#define BUTTON_PRESS_TIME                         *((unsigned char *)(CONFIG_SEGMENT + BUTTON_PRESS_TIME_offset                    ))  // 1 bytes
+#define NO_DEFINE                                 *((unsigned char *)(CONFIG_SEGMENT + NO_DEFINE_offset                            ))  // 1 bytes
+#define WAKE_UP_TIME_FROM_SUSPEND_MODE            *((unsigned char *)(CONFIG_SEGMENT + WAKE_UP_TIME_FROM_SUSPEND_MODE_offset       ))  // 1 bytes
+#define FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME     *((unsigned int *)(CONFIG_SEGMENT + FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_offset))  // 2 bytes
+#define SOC_CELL_OV_VOLTAGE                       *((unsigned int *)(CONFIG_SEGMENT + SOC_CELL_OV_VOLTAGE_offset                  ))  // 2 bytes
+#define SOC_CELL_UV_VOLTAGE                       *((unsigned int *)(CONFIG_SEGMENT + SOC_CELL_UV_VOLTAGE_offset                  ))  // 2 bytes
+#define CYCLECOUNT_DSG_CAP_THRESHOLD              *((unsigned int *)(CONFIG_SEGMENT + CYCLECOUNT_DSG_CAP_THRESHOLD_offset         ))  // 2 bytes
+#define CYCLECOUNT_FOR_CHG_LEVEL_1                *((unsigned int *)(CONFIG_SEGMENT + CYCLECOUNT_FOR_CHG_LEVEL_1_offset           ))  // 2 bytes
+#define CYCLECOUNT_FOR_CHG_LEVEL_2                *((unsigned int *)(CONFIG_SEGMENT + CYCLECOUNT_FOR_CHG_LEVEL_2_offset           ))  // 2 bytes
 
 
-#define CHG_CV_MODE_LIMIT_VOLTAGE_offset                36  //;2bytes
-#define CHG_CV_MODE_RELEASE_WAIT_TIME_offset            38  //;2bytes
-#define CHG_CV_MODE_REPEATING_CYCLE_offset              40  //;2bytes
-
-// define values in ADC_Factor_Config.h
-#define DSG_MA_TO_ADC_FACTOR_offset             42  //; float 4bytes
-#define CHG_MA_TO_ADC_FACTOR_offset             46  //; float 4bytes
-#define VBAT_10MV_TO_ADC_FACTOR_offset          50  //; float 4bytes
-
-// 2nd Level voltage Release
-#define _2ND_BATTERY_OV_RELEASE_offset          54  //;2bytes
-#define _2ND_BATTERY_UV_RELEASE_offset          56  //;2bytes
-
-// SOC Cycle Count
-#define _CYCLECOUNT_DSG_CAP_THRESHOLD_offset    58  //;2bytes
-#define _CYCLECOUNT_FOR_CHG_LEVEL_1_offset      60  //;2bytes
-#define _CYCLECOUNT_FOR_CHG_LEVEL_2_offset      62  //;2bytes
 
 
-////////////////////////////////////////////////////////////
-//  LEV System Information
-////////////////////////////////////////////////////////////
-//#define VERSION                           *((unsigned int *)(CONFIG_SEGMENT + VERSION_offset                     ))
-//#define MINOR_VERSION                     *((unsigned int *)(CONFIG_SEGMENT + MINOR_VERSION_offset               ))
-//#define SERIAL_NUMBER                     *((unsigned int *)(CONFIG_SEGMENT + SERIAL_NUMBER_offset               ))
-//#define MANUFACTURE_DATE                  *((unsigned int *)(CONFIG_SEGMENT + MANUFACTURE_DATE_offset            ))
-#define RESREVE1                          *((unsigned int *)(CONFIG_SEGMENT + RESREVE1_offset))
 
-#define DETECT_CURRENT_OF_DSG_STATUS      *((unsigned int *)(CONFIG_SEGMENT + DETECT_CURRENT_OF_DSG_STATUS_offset))
-#define DETECT_CURRENT_OF_CHG_STATUS      *((unsigned int *)(CONFIG_SEGMENT + DETECT_CURRENT_OF_CHG_STATUS_offset))
-
-//////////////////////////////////////////////////////////////////////////////
-#define OC_PROTECTION_RELEASE_TIME        *((unsigned char *)(CONFIG_SEGMENT + OC_PROTECTION_RELEASE_TIME_offset ))
-#define NO_DEFINE                         *((unsigned char *)(CONFIG_SEGMENT + NO_DEFINE_offset ))
-
-#define DOC_PROTECTION                    *((unsigned int *)(CONFIG_SEGMENT + DOC_PROTECTION_offset              ))
-#define COC_PROTECTION                    *((unsigned int *)(CONFIG_SEGMENT + COC_PROTECTION_offset              ))
-// 2012/05/07 ADD SOC FUNCTION, hsinmo
-#define SOC_1st_CELL_OV_VOLTAGE           *((unsigned int *)(CONFIG_SEGMENT + SOC_1st_CELL_OV_VOLTAGE_offset     ))
-#define SOC_1st_CELL_UV_VOLTAGE           *((unsigned int *)(CONFIG_SEGMENT + SOC_1st_CELL_UV_VOLTAGE_offset     ))
-
-
-#define _2ND_BATTERY_OV_PROTECTION        *((unsigned int *)(CONFIG_SEGMENT + _2ND_BATTERY_OV_PROTECTION_offset  ))
-#define _2ND_BATTERY_UV_PROTECTION        *((unsigned int *)(CONFIG_SEGMENT + _2ND_BATTERY_UV_PROTECTION_offset  ))
-#define DSG_OT_PROTECTION_VOLTAGE         *((unsigned int *)(CONFIG_SEGMENT + DSG_OT_PROTECTION_VOLTAGE_offset   ))
-#define DSG_OT_RELEASE_VOLTAGE            *((unsigned int *)(CONFIG_SEGMENT + DSG_OT_RELEASE_VOLTAGE_offset      ))
-#define CHG_OT_PROTECTION_VOLTAGE         *((unsigned int *)(CONFIG_SEGMENT + CHG_OT_PROTECTION_VOLTAGE_offset   ))
-#define CHG_OT_RELEASE_VOLTAGE            *((unsigned int *)(CONFIG_SEGMENT + CHG_OT_RELEASE_VOLTAGE_offset      ))
-#define UT_PROTECTION_VOLTAGE             *((unsigned int *)(CONFIG_SEGMENT + UT_PROTECTION_VOLTAGE_offset       ))
-#define UT_RELEASE_VOLTAGE                *((unsigned int *)(CONFIG_SEGMENT + UT_RELEASE_VOLTAGE_offset          ))
-#define BUTTON_PRESS_TIME                 *((unsigned char *)(CONFIG_SEGMENT + BUTTON_PRESS_TIME_offset          ))
-//SUSPEND_MODE
-#define WAKE_UP_TIME_FROM_SUSPEND_MODE           *((unsigned char *)(CONFIG_SEGMENT + _WAKE_UP_TIME_FROM_SUSPEND_MODE_offset  ))
-#define FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME    *((unsigned int *)(CONFIG_SEGMENT + _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_offset  ))
-
-#define CHG_CV_MODE_LIMIT_VOLTAGE         *((unsigned int *)(CONFIG_SEGMENT + CHG_CV_MODE_LIMIT_VOLTAGE_offset    ))
-#define CHG_CV_MODE_RELEASE_WAIT_TIME     *((unsigned int *)(CONFIG_SEGMENT + CHG_CV_MODE_RELEASE_WAIT_TIME_offset))
-#define CHG_CV_MODE_REPEATING_CYCLE       *((unsigned int *)(CONFIG_SEGMENT + CHG_CV_MODE_REPEATING_CYCLE_offset  ))
-
-
-#define  DSG_MA_TO_ADC_FACTOR                 *((float *)(CONFIG_SEGMENT + DSG_MA_TO_ADC_FACTOR_offset   ))
-#define  CHG_MA_TO_ADC_FACTOR                 *((float *)(CONFIG_SEGMENT + CHG_MA_TO_ADC_FACTOR_offset   ))
-#define  VBAT_10MV_TO_ADC_FACTOR              *((float *)(CONFIG_SEGMENT + VBAT_10MV_TO_ADC_FACTOR_offset   ))
-
-#define _2ND_BATTERY_OV_RELEASE           *((unsigned int *)(CONFIG_SEGMENT + _2ND_BATTERY_OV_RELEASE_offset  ))
-#define _2ND_BATTERY_UV_RELEASE           *((unsigned int *)(CONFIG_SEGMENT + _2ND_BATTERY_UV_RELEASE_offset  ))
-
-#define CYCLECOUNT_DSG_CAP_THRESHOLD      *((unsigned int *)(CONFIG_SEGMENT + _CYCLECOUNT_DSG_CAP_THRESHOLD_offset  ))
-#define CYCLECOUNT_FOR_CHG_LEVEL_1      *((unsigned int *)(CONFIG_SEGMENT + _CYCLECOUNT_FOR_CHG_LEVEL_1_offset  ))
-#define CYCLECOUNT_FOR_CHG_LEVEL_2      *((unsigned int *)(CONFIG_SEGMENT + _CYCLECOUNT_FOR_CHG_LEVEL_2_offset  ))
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -226,48 +215,54 @@
 // Define LEV System  CALIBRATION_SEGMENT Data
 // Used by SystemConfigInitialData.s43 to save into Flash Memory while downloading code into MCU
 //////////////////////////////////////////////////////////////////////////////////////
-#define ADC_DETECT_CURRENT_OF_DSG_STATUS_offset     0
-#define ADC_DETECT_CURRENT_OF_CHG_STATUS_offset     2
-#define ADC_DOC_PROTECTION_offset                   4
-#define ADC_COC_PROTECTION_offset                   6
-#define ADC_2ND_BATTERY_OV_PROTECTION_offset        8
-#define ADC_2ND_BATTERY_UV_PROTECTION_offset        10
-#define ADC_DSG_OT_PROTECTION_offset                12
-#define ADC_DSG_OT_RELEASE_offset                   14
-#define ADC_CHG_OT_PROTECTION_offset                16
-#define ADC_CHG_OT_RELEASE_offset                   18
-#define ADC_UT_PROTECTION_offset                    20
-#define ADC_UT_RELEASE_offset                       22
-#define ADC_CHG_CV_MODE_LIMIT_VOLTAGE_offset        24
+#define _VERSION_		                          Version
+#define _MINOR_VERSION_		                    MinorVersion
+#define _MANUFACTURE_DATE_                    (MANUFACTURE_DATE_YEAR - 1980) * 512 + MANUFACTURE_DATE_MONTH * 32 + MANUFACTURE_DATE_DAY
 
-#define ADC_2ND_BATTERY_OV_RELEASE_offset           26
-#define ADC_2ND_BATTERY_UV_RELEASE_offset           28
+#define _CHG_mA_To_ADC_Factor_          0.09270f        // 2 bytes;
+#define _DSG_mA_To_ADC_Factor_          0.09270f        // 2 bytes;
+#define _VBAT_mV_To_ADC_Factor_         0.01694f        // 2 bytes;
+#define _Thermistor_mV_To_ADC_Factor_   0.4096f         // 2 bytes; = 1/ADC_Step
+#define _CHG_OP_ADC_OFFSET_             0      //1byte ; 實際值-理論值 (signed char)
+#define _DSG_OP_ADC_OFFSET_             0      //1byte ; 實際值-理論值 (signed char)
+#define _VBAT_ADC_OFFSET_               0      //1byte ; 實際值-理論值 (signed char)
+#define _NTC_ADC_OFFSET_                0      //1byte ; 實際值-理論值 Thermistor (signed char)
 
-#define ADC_CYCLECOUNT_THRESHOLD_offset             30
-#define CURRENT_CYCLECOUNT_offset                   32
-#define CURRENT_ADC_ACCUMULATING_Q_offset           34
+
+
+
+#define VERSION_offset                       		  0  //; 2 bytes	
+#define MINOR_VERSION_offset                 		  2  //; 2 bytes	
+#define MANUFACTURE_DATE_offset              			4  //; 2 bytes	
+#define CHG_mA_To_ADC_Factor_offset         			6  //;	4 bytes
+#define DSG_mA_To_ADC_Factor_offset         			10 //;	4 bytes
+#define VBAT_mV_To_ADC_Factor_offset        			14 //;	4 bytes
+#define Thermistor_mV_To_ADC_Factor_offset  			18 //;	4 bytes
+#define CHG_OP_ADC_OFFSET_offset           				22 //;	1 byte
+#define DSG_OP_ADC_OFFSET_offset           				23 //;	1 byte
+#define VBAT_ADC_OFFSET_offset             				24 //;	1 byte
+#define NTC_ADC_OFFSET_offset              				25 //;	1 byte
+
+#define ADC_CYCLECOUNT_THRESHOLD_offset             26  //; 2 bytes	
+#define CURRENT_CYCLECOUNT_offset                   27  //; 2 bytes	
+#define CURRENT_ADC_ACCUMULATING_Q_offset           28  //; 2 bytes	
 
 
 
 ////////////////////////////////////////////////////////////
 //  LEV CALIBRATION Information definition
 ////////////////////////////////////////////////////////////
-#define  ADC_DETECT_CURRENT_OF_DSG_STATUS    *((unsigned int *)(CALIBRATION_SEGMENT + ADC_DETECT_CURRENT_OF_DSG_STATUS_offset))
-#define  ADC_DETECT_CURRENT_OF_CHG_STATUS    *((unsigned int *)(CALIBRATION_SEGMENT + ADC_DETECT_CURRENT_OF_CHG_STATUS_offset))
-#define  ADC_DOC_PROTECTION                  *((unsigned int *)(CALIBRATION_SEGMENT + ADC_DOC_PROTECTION_offset              ))
-#define  ADC_COC_PROTECTION                  *((unsigned int *)(CALIBRATION_SEGMENT + ADC_COC_PROTECTION_offset              ))
-#define  ADC_2ND_BATTERY_OV_PROTECTION       *((unsigned int *)(CALIBRATION_SEGMENT + ADC_2ND_BATTERY_OV_PROTECTION_offset   ))
-#define  ADC_2ND_BATTERY_UV_PROTECTION       *((unsigned int *)(CALIBRATION_SEGMENT + ADC_2ND_BATTERY_UV_PROTECTION_offset   ))
-#define  ADC_DSG_OT_PROTECTION               *((unsigned int *)(CALIBRATION_SEGMENT + ADC_DSG_OT_PROTECTION_offset           ))
-#define  ADC_DSG_OT_RELEASE                  *((unsigned int *)(CALIBRATION_SEGMENT + ADC_DSG_OT_RELEASE_offset              ))
-#define  ADC_CHG_OT_PROTECTION               *((unsigned int *)(CALIBRATION_SEGMENT + ADC_CHG_OT_PROTECTION_offset           ))
-#define  ADC_CHG_OT_RELEASE                  *((unsigned int *)(CALIBRATION_SEGMENT + ADC_CHG_OT_RELEASE_offset              ))
-#define  ADC_UT_PROTECTION                   *((unsigned int *)(CALIBRATION_SEGMENT + ADC_UT_PROTECTION_offset               ))
-#define  ADC_UT_RELEASE                      *((unsigned int *)(CALIBRATION_SEGMENT + ADC_UT_RELEASE_offset                  ))
-#define  ADC_CHG_CV_MODE_LIMIT_VOLTAGE       *((unsigned int *)(CALIBRATION_SEGMENT + ADC_CHG_CV_MODE_LIMIT_VOLTAGE_offset   ))
-
-#define  ADC_2ND_BATTERY_OV_RELEASE         *((unsigned int *)(CALIBRATION_SEGMENT + ADC_2ND_BATTERY_OV_RELEASE_offset   ))
-#define  ADC_2ND_BATTERY_UV_RELEASE         *((unsigned int *)(CALIBRATION_SEGMENT + ADC_2ND_BATTERY_UV_RELEASE_offset   ))
+#define  VERSION                              *((unsigned int *)(CALIBRATION_SEGMENT + VERSION_offset                          ))
+#define  MINOR_VERSION                        *((unsigned int *)(CALIBRATION_SEGMENT + MINOR_VERSION_offset                    ))
+#define  MANUFACTURE_DATE                     *((unsigned int *)(CALIBRATION_SEGMENT + MANUFACTURE_DATE_offset                 ))
+#define  CHG_mA_To_ADC_Factor                 *((float *)(CALIBRATION_SEGMENT + CHG_mA_To_ADC_Factor_offset         	   ))
+#define  DSG_mA_To_ADC_Factor                 *((float *)(CALIBRATION_SEGMENT + DSG_mA_To_ADC_Factor_offset         	   ))
+#define  VBAT_mV_To_ADC_Factor                *((float *)(CALIBRATION_SEGMENT + VBAT_mV_To_ADC_Factor_offset        	   ))
+#define  Thermistor_mV_To_ADC_Factor          *((float *)(CALIBRATION_SEGMENT + Thermistor_mV_To_ADC_Factor_offset  	   ))
+#define  CHG_OP_ADC_OFFSET                    *((signed char *)(CALIBRATION_SEGMENT + CHG_OP_ADC_OFFSET_offset           	   ))
+#define  DSG_OP_ADC_OFFSET                    *((signed char *)(CALIBRATION_SEGMENT + DSG_OP_ADC_OFFSET_offset           	   ))
+#define  VBAT_ADC_OFFSET                      *((signed char *)(CALIBRATION_SEGMENT + VBAT_ADC_OFFSET_offset             	   ))
+#define  NTC_ADC_OFFSET                       *((signed char *)(CALIBRATION_SEGMENT + NTC_ADC_OFFSET_offset              	   ))
 
 #define  ADC_CYCLECOUNT_THRESHOLD           *((unsigned int *)(CALIBRATION_SEGMENT + ADC_CYCLECOUNT_THRESHOLD_offset   ))
 #define  CURRENT_CYCLECOUNT                 *((unsigned int *)(CALIBRATION_SEGMENT + CURRENT_CYCLECOUNT_offset   ))

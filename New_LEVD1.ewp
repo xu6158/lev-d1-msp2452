@@ -1787,9 +1787,6 @@
   <group>
     <name>SystemInitialData</name>
     <file>
-      <name>$PROJ_DIR$\SystemInitialData\ADC_Factor_Config.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\SystemInitialData\CalculatingSettingProtectionToADC.c</name>
     </file>
     <file>

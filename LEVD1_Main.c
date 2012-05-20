@@ -71,8 +71,6 @@ unsigned char Startup_Func()
   }
   P2OUT &=~LED_SET_ALL;
   
-  CalculatingSettingProtectionToADC();
-
   __delay_cycles(100000);  // 100ms ==> 1MHz clock
   
   Setup_USI_Slave();
@@ -448,7 +446,7 @@ unsigned char Normal_Func(){
     if(G_Activate_Action_Status & BUTTON_CLICK_FLAG){
       G_Activate_Action_Status &= ~BUTTON_CLICK_FLAG;
       fTemp = GetADCValue(Vbat_ADC);
-      fTemp = fTemp / VBAT_10MV_TO_ADC_FACTOR * 10;
+      fTemp = fTemp / VBAT_mV_To_ADC_Factor;
       iTemp1 = (unsigned int)(fTemp / NUMBER_OF_SERIES_CELLS);
       DisplayCapacity(getRealCapacityByCell(iTemp1), true);
     }

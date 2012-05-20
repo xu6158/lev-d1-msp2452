@@ -1,6 +1,5 @@
 
 #include "SystemInformation.h"
-#include "ADC_Factor_Config.h"
            
 ////////////////////////////////////////////////////////////
 //  LEV System Information
@@ -8,55 +7,55 @@
         ORG     Flash_segment_B
         
         ; LEV Information
-//        DW _VERSION_		                  
-//        DW _MINOR_VERSION_		            
-//        DW _SERIAL_NUMBER_                
-//        DW _MANUFACTURE_DATE_             
+        DW _SERIAL_NUMBER_                              ;0 	// 2 bytes
+        DB _NUMBER_OF_PARALLEL_CELLS_                   ;2 	// 1 bytes
+        DB _NUMBER_OF_SERIES_CELLS_                     ;3 	// 1 bytes
+        DW _ADC_DETECT_CURRENT_OF_DSG_STATUS_           ;4 	// 2 bytes
+        DW _ADC_DETECT_CURRENT_OF_CHG_STATUS_           ;6 	// 2 bytes
+        DW _ADC_DOC_PROTECTION_                         ;8 	// 2 bytes
+        DW _ADC_COC_PROTECTION_                         ;10 	// 2 bytes
+        DW _ADC_2ND_BATTERY_OV_PROTECTION_              ;12 	// 2 bytes
+        DW _ADC_2ND_BATTERY_OV_RELEASE_                 ;14 	// 2 bytes
+        DW _ADC_2ND_BATTERY_UV_PROTECTION_              ;16 	// 2 bytes
+        DW _ADC_2ND_BATTERY_UV_RELEASE_                 ;18 	// 2 bytes
+        DW _ADC_DSG_OT_PROTECTION_                      ;20 	// 2 bytes
+        DW _ADC_DSG_OT_RELEASE_                         ;22 	// 2 bytes
+        DW _ADC_CHG_OT_PROTECTION_                      ;24 	// 2 bytes
+        DW _ADC_CHG_OT_RELEASE_                         ;26 	// 2 bytes
+        DW _ADC_UT_PROTECTION_                          ;28 	// 2 bytes
+        DW _ADC_UT_RELEASE_                             ;30 	// 2 bytes
+        DB _OC_PROTECTION_RELEASE_TIME_                 ;32 	// 1 bytes
+        DB _BUTTON_PRESS_TIME_                          ;33 	// 1 bytes
+        DB _NO_DEFINE_                                  ;34 	// 1 bytes
+        DB _WAKE_UP_TIME_FROM_SUSPEND_MODE_             ;35 	// 1 bytes
+        DW _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_      ;36 	// 2 bytes
+        DW _SOC_CELL_OV_VOLTAGE_                        ;38 	// 2 bytes
+        DW _SOC_CELL_UV_VOLTAGE_                        ;40 	// 2 bytes
+        DW _CYCLECOUNT_DSG_CAP_THRESHOLD_               ;42 	// 2 bytes
+        DW _CYCLECOUNT_FOR_CHG_LEVEL_1_                 ;44 	// 2 bytes
+        DW _CYCLECOUNT_FOR_CHG_LEVEL_2_                 ;46 	// 2 bytes
+        
 
-        DW _RESREVE1_
-        
-        DW _DETECT_CURRENT_OF_DSG_STATUS_ 
-        DW _DETECT_CURRENT_OF_CHG_STATUS_ 
-        
-//////////////////////////////////////////////////////////////////////////////
-        DB _OC_PROTECTION_RELEASE_TIME_ 
-        DB _NO_DEFINE_
-        DW _DOC_PROTECTION_               
-        DW _COC_PROTECTION_
-// 2012/05/07 ADD SOC FUNCTION, hsinmo
-        DW _SOC_1st_CELL_OV_VOLTAGE_
-        DW _SOC_1st_CELL_UV_VOLTAGE_
+#if 1            
 
+        ; TEST  Information
+        ORG     Flash_segment_C
 
-        DW __2ND_BATTERY_OV_PROTECTION_    
-        DW __2ND_BATTERY_UV_PROTECTION_    
-        DW  _DSG_OT_PROTECTION_VOLTAGE_           
-        DW  _DSG_OT_RELEASE_VOLTAGE_              
-        DW  _CHG_OT_PROTECTION_VOLTAGE_           
-        DW  _CHG_OT_RELEASE_VOLTAGE_              
-        DW  _UT_PROTECTION_VOLTAGE_               
-        DW  _UT_RELEASE_VOLTAGE_   
-        
-        DB _BUTTON_PRESS_TIME_
-        
-        DB _WAKE_UP_TIME_FROM_SUSPEND_MODE_
-        DW _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_
-        
-        DW _CHG_CV_MODE_LIMIT_VOLTAGE_
-        DW _CHG_CV_MODE_RELEASE_WAIT_TIME_
-        DW _CHG_CV_MODE_REPEATING_CYCLE_
-        
-       
-        DF _DSG_mA_to_ADC_factor_
-        DF _CHG_mA_to_ADC_factor_
-        DF _VBAT_10mV_To_ADC_Factor_
+        DW _VERSION_		                    		; 2 bytes	
+        DW _MINOR_VERSION_		              		; 2 bytes	
+        DW _MANUFACTURE_DATE_              			; 2 bytes	
+        DF _CHG_mA_To_ADC_Factor_         			;	4 bytes
+        DF _DSG_mA_To_ADC_Factor_         			;	4 bytes
+        DF _VBAT_mV_To_ADC_Factor_        			;	4 bytes
+        DF _Thermistor_mV_To_ADC_Factor_  			;	4 bytes
+        DB _CHG_OP_ADC_OFFSET_         					;	1 byte
+        DB _DSG_OP_ADC_OFFSET_         					;	1 byte
+        DB _VBAT_ADC_OFFSET_           					;	1 byte
+        DB _NTC_ADC_OFFSET_            					;	1 byte
+          
+          
+#endif
 
-        DW __2ND_BATTERY_OV_RELEASE_    
-        DW __2ND_BATTERY_UV_RELEASE_    
-
-        DW _CYCLECOUNT_DSG_CAP_THRESHOLD_    
-        DW _CYCLECOUNT_FOR_CHG_LEVEL_1_   
-        DW _CYCLECOUNT_FOR_CHG_LEVEL_2_
 
 
 #if 0            

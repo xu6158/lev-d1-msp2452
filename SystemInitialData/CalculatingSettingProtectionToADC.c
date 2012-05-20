@@ -1,7 +1,6 @@
 
 #include "SystemInformation.h"
 #include "..\LEV_PrjDefine.h"
-#include "ADC_Factor_Config.h"
 
 
 //Hi 4-bit as 
@@ -12,6 +11,7 @@ unsigned char Function_Selection_Status;
 
 extern void WriteDataToFlash(unsigned char Offset_Address, unsigned char *value, unsigned char dataLength, unsigned char SegmentSelection);
 
+#if 0
 void CalculatingSettingProtectionToADC(){
   unsigned char i;
   unsigned char InitialFlashContent[Flash_segment_Size];
@@ -164,3 +164,5 @@ void SetCalibrationData(unsigned char Function_Selection, unsigned char Cal_poin
     }  
   }
 }
+
+#endif

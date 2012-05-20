@@ -23,8 +23,8 @@ unsigned char getRealCapacityByCell(int mVoltage){
   float OV_Capacity;
   float UV_Capacity;
   
-  OV_Capacity = getCapacityByTable(SOC_1st_CELL_OV_VOLTAGE);
-  UV_Capacity = getCapacityByTable(SOC_1st_CELL_UV_VOLTAGE);
+  OV_Capacity = getCapacityByTable(SOC_CELL_OV_VOLTAGE);
+  UV_Capacity = getCapacityByTable(SOC_CELL_UV_VOLTAGE);
   cap = getCapacityByTable( mVoltage);
   
   temp_f2 = OV_Capacity - UV_Capacity;
