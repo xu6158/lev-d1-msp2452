@@ -140,15 +140,12 @@ void checkRXAndSetTX()
       uINT_Value = GetADCValue(T1_ADC);
       SLV_RxTxBuffer[2] = uINT_Value & 0x00ff;
       SLV_RxTxBuffer[3] = (uINT_Value & 0xff00) >> 8;
-      uINT_Value = GetADCValue(T2_ADC);
+      uINT_Value = GetADCValue(ICHG_ADC);
       SLV_RxTxBuffer[4] = uINT_Value & 0x00ff;
       SLV_RxTxBuffer[5] = (uINT_Value & 0xff00) >> 8;
-      uINT_Value = GetADCValue(ICHG_ADC);
+      uINT_Value = GetADCValue(IDSG_ADC);
       SLV_RxTxBuffer[6] = uINT_Value & 0x00ff;
       SLV_RxTxBuffer[7] = (uINT_Value & 0xff00) >> 8;
-      uINT_Value = GetADCValue(IDSG_ADC);
-      SLV_RxTxBuffer[8] = uINT_Value & 0x00ff;
-      SLV_RxTxBuffer[9] = (uINT_Value & 0xff00) >> 8;
       break;
     
       // get status

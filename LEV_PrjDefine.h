@@ -75,15 +75,13 @@ void InitTimerB();
 | ADC Port: 
 | P1.0:A0: Vbat, 
 | P1.1:A1: T1,
-| P1.2:A2: T2,   
-| P1.3:A3: I_CHG,
-| P1.4:A4: I_DSG,
+| P1.2:A2: I_CHG,   
+| P1.3:A3: I_DSG,
 \************************************************************/
 enum For_ADC_Channel  //unsigned char
 {
-  IDSG_ADC,  //A4, first in data buffer
-  ICHG_ADC, //A3, second in data buffer
-  T2_ADC,   //A2, 3th in data buffer
+  IDSG_ADC,  //A3, first in data buffer
+  ICHG_ADC, //A2, second in data buffer
   T1_ADC,   //A1, 4th in data buffer 
   Vbat_ADC  //A0, last in data buffer
 };

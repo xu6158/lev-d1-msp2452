@@ -25,3 +25,6 @@ Ver 7
 2012/05/16	take COC protection function back
 Ver 8
 2012/05/18	Remove CV-Mode Control function
+Ver 9	==> for Version 2 Board
+2012/05/20      modify user config (SystemInformation.h and SystemConfigInitial.s43)
+2012/05/21	modify ADC to 4 channels and remove IIC_Slave.c about T2_ADC

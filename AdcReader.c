@@ -5,7 +5,12 @@
 
 
 
-#define NUM_OF_CONVERSION     20
+
+#define NUM_OF_ADC_CHANNEL      4
+#define NUM_OF_ADC_CONVERSION   4
+#define NUM_OF_CONVERSION       (NUM_OF_ADC_CHANNEL * NUM_OF_ADC_CONVERSION)    //4 channel * sampling 4 times ==> 16
+//#define NUM_OF_CONVERSION       16    //4 channel * sampling 4 times ==> 16
+//#define NUM_OF_CONVERSION     20    //5 channel * sampling 4 times ==> 20
 
 volatile unsigned int ADC_Results[NUM_OF_CONVERSION];
 //unsigned int ADCresults_Avg;
@@ -38,10 +43,10 @@ void OffAdcReader(){
 
 void StartAdcConversion() 
 {
-  ADC10CTL1 = INCH_4 + CONSEQ_3;
+  ADC10CTL1 = INCH_3 + CONSEQ_3;
   ADC10CTL0 = ADC10SHT_2 + MSC + ADC10ON + ADC10IE +SREF_1+REFON+REF2_5V;
-  ADC10AE0 = 0x1F;                          // P1.0,1,2,3,4  ADC option select
-  ADC10DTC1 = 0x14;//0x10;                  // 4 conversions, 20 samples
+  ADC10AE0 = 0x0F;                          // P1.0,1,2,3  ADC option select
+  ADC10DTC1 = 0x10;//0x10;                  // 4 channel, 4 conversions, 16 samples
   __delay_cycles(125);  // 125us ==> 1MHz clock
 
   ADC10CTL0 &= ~ENC;
@@ -66,7 +71,7 @@ unsigned int GetADCValue(unsigned char ADC_Channel)
 {
   int i = 0;
   unsigned int ADCresults_Avg = 0;
-  for (i = ADC_Channel; i < NUM_OF_CONVERSION; i += 5)
+  for (i = ADC_Channel; i < NUM_OF_CONVERSION; i += NUM_OF_ADC_CHANNEL)
   {
     ADCresults_Avg += ADC_Results[i];
   }
