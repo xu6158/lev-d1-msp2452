@@ -238,8 +238,13 @@ void checkRXAndSetTX()
       /////////////////////////////////////////////////////
       /////////////////////////////////////////////////////
       // into Calibration mode
-    case 0xf0:
+    case 0xe5:
       G_uc_SysModeStatusCode = CalibrationMode;
+      break;
+      /////////////////////////////////////////////////////
+      // into StartUp mode
+    case 0xe6:
+      G_uc_SysModeStatusCode = StartUp;
       break;
       /////////////////////////////////////////////////////
       // Set Calibration Data
@@ -257,9 +262,6 @@ void checkRXAndSetTX()
       //void ReadInitialDataFromFlash(unsigned char Offset_Address, unsigned char *out_ptr, unsigned char dataLength, unsigned char SegmentSelection);
       ReadInitialDataFromFlash(SLV_RxTxBuffer[3], &uINT_Value, SLV_RxTxBuffer[4], SLV_RxTxBuffer[2]);
       SLV_Tx_Pointer = (unsigned char *)uINT_Value;
-      break;
-    case 0xf2:
-      G_uc_SysModeStatusCode = StartUp;
       break;
   
     default:

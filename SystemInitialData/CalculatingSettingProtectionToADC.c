@@ -10,7 +10,6 @@ unsigned char Cal_Status;
 unsigned char Function_Selection_Status;
 
 extern void WriteDataToFlash(unsigned char Offset_Address, unsigned char *value, unsigned char dataLength, unsigned char SegmentSelection);
-
 #if 0
 void CalculatingSettingProtectionToADC(){
   unsigned char i;
@@ -117,7 +116,6 @@ void CalculatingSettingProtectionToADC(){
 //  ft = ADC_2ND_BATTERY_UV_PROTECTION;
  
 }
-
 
 
 void SetCalibrationData(unsigned char Function_Selection, unsigned char Cal_point, unsigned int present_Values){

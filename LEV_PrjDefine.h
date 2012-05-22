@@ -26,10 +26,10 @@
 #define LED_CAPACITY_3                    (LED1+LED2+LED3)  // three LEDs on
 #define LED_CAPACITY_4                    LED_SET_ALL
 #define DisplayCAPACITY_TIME              2 //sec
-#define CAPACITY_1          35
-#define CAPACITY_2          55
+#define CAPACITY_1          25
+#define CAPACITY_2          50
 #define CAPACITY_3          75
-#define CAPACITY_4          100
+//#define CAPACITY_4          74
 
 //#define LED_CAPACITY_25                   LED1  // one LED on
 //#define LED_CAPACITY_50                   (LED1+LED2)  // two LEDs on
@@ -202,7 +202,7 @@ void SetCalibrationData(unsigned char Function_Selection, unsigned char Cal_poin
 ////////////////////////////////////////////
 // SOC Function
 ////////////////////////////////////////////
-unsigned char getRealCapacityByCell(int mVoltage);
+unsigned char getRealCapacityByCell(int ADC_Voltage, int ADC_current);
 
 
 ////////////////////////////////////////////

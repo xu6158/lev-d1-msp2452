@@ -1,5 +1,6 @@
 
 #include "SystemInformation.h"
+
            
 ////////////////////////////////////////////////////////////
 //  LEV System Information
@@ -35,8 +36,11 @@
         DW _CYCLECOUNT_FOR_CHG_LEVEL_1_                 ;44 	// 2 bytes
         DW _CYCLECOUNT_FOR_CHG_LEVEL_2_                 ;46 	// 2 bytes
         
+        DW _ADC_LOOKUP_1st_OCV_CURRENT_RANGE_     //48; 2bytes; CURRENT_OF_DSG_STATUS ~ 650mA
+        DW _ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_     //50; 2bytes; 650mA ~ 1950mA
+        DW _ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_     //52; 2bytes; 1950mA ~ 3900mA
 
-#if 1            
+#if 0           
 
         ; TEST  Information
         ORG     Flash_segment_C

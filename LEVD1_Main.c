@@ -52,6 +52,17 @@ unsigned char FirstInitial_Func(){
 //  __delay_cycles(100);  // 106us ==> 1MHz clock
 //  __delay_cycles(10);  // 165s ==> 1MHz clock
 
+  //getRealCapacityByCell(int ADC_Voltage, int ADC_current)
+//  values = getRealCapacityByCell(668,60);
+//  values = getRealCapacityByCell(668,50);  
+//  values = getRealCapacityByCell(668,61);  
+//  values = getRealCapacityByCell(668,181);  
+//  values = getRealCapacityByCell(668,182);  
+//  values = getRealCapacityByCell(668,362);  
+//  values = getRealCapacityByCell(668,363);  
+//  values = getRealCapacityByCell(668,400);  
+//  values = getRealCapacityByCell(668,60);  
+  
   //Setup_USI_Slave();
   return 0;
 }
@@ -71,6 +82,7 @@ unsigned char Startup_Func()
   }
   P2OUT &=~LED_SET_ALL;
   
+
   __delay_cycles(100000);  // 100ms ==> 1MHz clock
   
   Setup_USI_Slave();
@@ -90,22 +102,7 @@ unsigned char Startup_Func()
   G_uc_SystemFailureCode = SystemNormal;
   G_Activate_Action_Status = 0;
   //return ShippingMode;
-  
-//values = ADC_DETECT_CURRENT_OF_DSG_STATUS;   
-//values = ADC_DETECT_CURRENT_OF_CHG_STATUS;   
-//values = ADC_DOC_PROTECTION              ;   
-//values = ADC_COC_PROTECTION              ;   
-//values = ADC_2ND_BATTERY_OV_PROTECTION   ;   
-//values = ADC_2ND_BATTERY_UV_PROTECTION   ;   
-//values = ADC_DSG_OT_PROTECTION           ;   
-//values = ADC_DSG_OT_RELEASE              ;   
-//values = ADC_CHG_OT_PROTECTION           ;   
-//values = ADC_CHG_OT_RELEASE              ;   
-//values = ADC_UT_PROTECTION               ;   
-//values = ADC_UT_RELEASE                  ;   
-//values = ADC_CHG_CV_MODE_LIMIT_VOLTAGE   ; 
- 
-    
+
   //Power-on self-test
   G_uc_SysModeStatusCode = POSTMode;
   StartAdcConversion();  
@@ -124,7 +121,6 @@ unsigned char Startup_Func()
 
 unsigned char Normal_Func(){
   unsigned int iTemp1, iTemp2;
-  float fTemp;
   
   setMosFET(MOSFET_CHG, DeviceOn);
   setMosFET(MOSFET_DSG, DeviceOn);
@@ -258,26 +254,27 @@ unsigned char Normal_Func(){
       return FailureMode;
     }
     /////////////////////////////////////////////////////////
-    if((G_Module_Status & Module_RELAX) && ((G_Module_Status & Module_DSG)==0)){
-      G_uc_SystemFailureCode = AbnormalFlagFail;
-      return FailureMode;
-    }
-    if((G_Module_Status & Module_C_OC) && (G_Module_Status & Module_D_OC)){
-      G_uc_SystemFailureCode = AbnormalFlagFail;
-      return FailureMode;
-    }
-    if((G_Module_Status & Module_UV) && (G_Module_Status & Module_OV)){
-      G_uc_SystemFailureCode = AbnormalFlagFail;
-      return FailureMode;
-    }
-    if((G_Module_Status & Module_DSG_OT) && (G_Module_Status & Module_UT)){
-      G_uc_SystemFailureCode = ThermalFail;
-      return FailureMode;
-    }
-    if((G_Module_Status & Module_CHG_OT) && (G_Module_Status & Module_UT)){
-      G_uc_SystemFailureCode = ThermalFail;
-      return FailureMode;
-    }
+    //2012/05/21 remove Fail mode function, hsinmo
+//    if((G_Module_Status & Module_RELAX) && ((G_Module_Status & Module_DSG)==0)){
+//      G_uc_SystemFailureCode = AbnormalFlagFail;
+//      return FailureMode;
+//    }
+//    if((G_Module_Status & Module_C_OC) && (G_Module_Status & Module_D_OC)){
+//      G_uc_SystemFailureCode = AbnormalFlagFail;
+//      return FailureMode;
+//    }
+//    if((G_Module_Status & Module_UV) && (G_Module_Status & Module_OV)){
+//      G_uc_SystemFailureCode = AbnormalFlagFail;
+//      return FailureMode;
+//    }
+//    if((G_Module_Status & Module_DSG_OT) && (G_Module_Status & Module_UT)){
+//      G_uc_SystemFailureCode = ThermalFail;
+//      return FailureMode;
+//    }
+//    if((G_Module_Status & Module_CHG_OT) && (G_Module_Status & Module_UT)){
+//      G_uc_SystemFailureCode = ThermalFail;
+//      return FailureMode;
+//    }
     
     /////////////////////////////////////////////////////////
     // Comparation protection and active function section
@@ -445,10 +442,13 @@ unsigned char Normal_Func(){
     }
     if(G_Activate_Action_Status & BUTTON_CLICK_FLAG){
       G_Activate_Action_Status &= ~BUTTON_CLICK_FLAG;
-      fTemp = GetADCValue(Vbat_ADC);
-      fTemp = fTemp / VBAT_mV_To_ADC_Factor;
-      iTemp1 = (unsigned int)(fTemp / NUMBER_OF_SERIES_CELLS);
-      DisplayCapacity(getRealCapacityByCell(iTemp1), true);
+      if((G_Module_Status & Module_DSG)==0){
+        iTemp1 = GetADCValue(ICHG_ADC);
+      }else{
+        iTemp1 = GetADCValue(IDSG_ADC);
+      }
+      iTemp2 = GetADCValue(Vbat_ADC);
+      DisplayCapacity(getRealCapacityByCell(iTemp2,iTemp1), true);
     }
     
     //into suspend mode
@@ -524,7 +524,7 @@ unsigned char Calibration_Func(){
   
   while(1){
     if(G_uc_SysModeStatusCode != CalibrationMode){
-      return G_uc_SysModeStatusCode;
+      break;
     }
     if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
       G_Activate_Action_Status = 0;
@@ -561,7 +561,7 @@ unsigned char Suspend_Func(){
     setMosFET(MOSFET_DSG, DeviceOn);
     //initial
     //InitAdcReader();
-    __delay_cycles(10000);  // 10ms ==> 1MHz clock
+    __delay_cycles(100000);  // 100ms ==> 1MHz clock
     // Start ADC conversion
     StartAdcConversion();
     // get current

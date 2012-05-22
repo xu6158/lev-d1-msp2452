@@ -28,3 +28,8 @@ Ver 8
 Ver 9	==> for Version 2 Board
 2012/05/20      modify user config (SystemInformation.h and SystemConfigInitial.s43)
 2012/05/21	modify ADC to 4 channels and remove IIC_Slave.c about T2_ADC
+Ver 10
+2012/05/21	failmode, remove fail functions
+2012/05/21      修改 SOCTable to 4 current line based on DSG/CHG current
+2012/05/21      suspend mode wakeup 加delay
+2012/05/21      adc值加校正offset值

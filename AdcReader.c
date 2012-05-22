@@ -76,6 +76,24 @@ unsigned int GetADCValue(unsigned char ADC_Channel)
     ADCresults_Avg += ADC_Results[i];
   }
   ADCresults_Avg = ADCresults_Avg >> 2;
+  
+  switch(ADC_Channel){
+    case IDSG_ADC:
+      ADCresults_Avg += DSG_OP_ADC_OFFSET;
+      break;
+    case ICHG_ADC:
+      ADCresults_Avg += CHG_OP_ADC_OFFSET;
+      break;
+    case T1_ADC:
+      ADCresults_Avg += NTC_ADC_OFFSET;
+      break;
+    case Vbat_ADC:
+      ADCresults_Avg += VBAT_ADC_OFFSET;
+      break;
+    default:  
+      break;
+  }
+
   return ADCresults_Avg;
 }
 

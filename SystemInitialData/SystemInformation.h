@@ -144,6 +144,14 @@
 #define _CYCLECOUNT_FOR_CHG_LEVEL_1_                500         // 500 times; unit: times; 2byte; Cycle Count times for charger to set CHG voltage
 #define _CYCLECOUNT_FOR_CHG_LEVEL_2_                1000        // 1000 times; unit: times; 2byte; Cycle Count times for charger to set CHG voltage
 //=====================================================================================================================
+// OCV TABLE Line Current Range, 4 ocv lines
+// Battery for a cell capacity ==> 2600 mAH
+// 0.5C DSG = 1300 mA, 1C DSG = 2600 mA, 2C DSG = 5200 mA
+// _DSG_mA_to_ADC_factor_      0.0927f (參考上面之設定)
+#define _ADC_LOOKUP_1st_OCV_CURRENT_RANGE_     60     // 650mA; 2bytes; CURRENT_OF_DSG_STATUS ~ 650mA
+#define _ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_     181    // 1950mA; 2bytes; 650mA ~ 1950mA
+#define _ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_     362    // 3900mA; 2bytes; 1950mA ~ 3900mA
+//=====================================================================================================================
 
 
 #define SERIAL_NUMBER_offset                              0 	// 2 bytes
@@ -173,6 +181,9 @@
 #define CYCLECOUNT_DSG_CAP_THRESHOLD_offset               42 	// 2 bytes
 #define CYCLECOUNT_FOR_CHG_LEVEL_1_offset                 44 	// 2 bytes
 #define CYCLECOUNT_FOR_CHG_LEVEL_2_offset                 46 	// 2 bytes
+#define ADC_LOOKUP_1st_OCV_CURRENT_RANGE_offset           48 	// 2 bytes
+#define ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_offset           50 	// 2 bytes
+#define ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_offset           52 	// 2 bytes
 
 
 
@@ -204,7 +215,9 @@
 #define CYCLECOUNT_FOR_CHG_LEVEL_1                *((unsigned int *)(CONFIG_SEGMENT + CYCLECOUNT_FOR_CHG_LEVEL_1_offset           ))  // 2 bytes
 #define CYCLECOUNT_FOR_CHG_LEVEL_2                *((unsigned int *)(CONFIG_SEGMENT + CYCLECOUNT_FOR_CHG_LEVEL_2_offset           ))  // 2 bytes
 
-
+#define ADC_LOOKUP_1st_OCV_CURRENT_RANGE          *((unsigned int *)(CONFIG_SEGMENT + ADC_LOOKUP_1st_OCV_CURRENT_RANGE_offset     ))  // 2 bytes
+#define ADC_LOOKUP_2nd_OCV_CURRENT_RANGE          *((unsigned int *)(CONFIG_SEGMENT + ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_offset     ))  // 2 bytes
+#define ADC_LOOKUP_3rd_OCV_CURRENT_RANGE          *((unsigned int *)(CONFIG_SEGMENT + ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_offset     ))  // 2 bytes
 
 
 
@@ -243,9 +256,9 @@
 #define VBAT_ADC_OFFSET_offset             				24 //;	1 byte
 #define NTC_ADC_OFFSET_offset              				25 //;	1 byte
 
-#define ADC_CYCLECOUNT_THRESHOLD_offset             26  //; 2 bytes	
-#define CURRENT_CYCLECOUNT_offset                   27  //; 2 bytes	
-#define CURRENT_ADC_ACCUMULATING_Q_offset           28  //; 2 bytes	
+#define ADC_CYCLECOUNT_THRESHOLD_offset           26  //; 2 bytes	
+#define CURRENT_CYCLECOUNT_offset                 27  //; 2 bytes	
+#define CURRENT_ADC_ACCUMULATING_Q_offset         28  //; 2 bytes	
 
 
 
