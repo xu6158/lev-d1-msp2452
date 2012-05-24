@@ -108,13 +108,13 @@ unsigned char Startup_Func()
   //Power-on self-test
   G_uc_SysModeStatusCode = POSTMode;
   StartAdcConversion();  
-  //MOSFET Check
-  if( GetADCValue(IDSG_ADC) > ADC_DETECT_CURRENT_OF_DSG_STATUS ||
-      GetADCValue(ICHG_ADC) > ADC_DETECT_CURRENT_OF_CHG_STATUS ){
-      G_uc_SystemFailureCode = MOSFETFail;
-      setBlinkLED(SystemFailBlinkLED, true);
-      return FailureMode;
-    }
+  //MOSFET Fail Check
+//  if( GetADCValue(IDSG_ADC) > ADC_DETECT_CURRENT_OF_DSG_STATUS ||
+//      GetADCValue(ICHG_ADC) > ADC_DETECT_CURRENT_OF_CHG_STATUS ){
+//      G_uc_SystemFailureCode = MOSFETFail;
+//      setBlinkLED(SystemFailBlinkLED, true);
+//      return FailureMode;
+//    }
 
 
   return NormalMode;
@@ -366,9 +366,19 @@ unsigned char Normal_Func(){
         }
     }else if(G_Module_Status & Module_2nd_UV){
         setMosFET(MOSFET_DSG, DeviceOff);
-        //relese 2nd_UV
-        iTemp1 = GetADCValue(Vbat_ADC);
-        if( iTemp1 > ADC_2ND_BATTERY_UV_RELEASE){
+        /////////////////////////////////////////////////
+        //remove by hsinmo 2012/05/23
+        //relese 2nd_UV By Release Voltage
+        //iTemp1 = GetADCValue(Vbat_ADC);
+        //if( iTemp1 > ADC_2ND_BATTERY_UV_RELEASE){
+        //  G_Module_Status &= ~Module_2nd_UV;
+        //  setMosFET(MOSFET_DSG, DeviceOn);
+        //}
+        /////////////////////////////////////////////////
+        //add by hsinmo 2012/05/23
+        //relese 2nd_UV By Charger staus
+        if((G_Module_Status & Module_DSG)==0){
+          // CHG status
           G_Module_Status &= ~Module_2nd_UV;
           setMosFET(MOSFET_DSG, DeviceOn);
         }
@@ -446,7 +456,8 @@ unsigned char Normal_Func(){
     if(G_Activate_Action_Status & BUTTON_CLICK_FLAG){
       G_Activate_Action_Status &= ~BUTTON_CLICK_FLAG;
       if((G_Module_Status & Module_DSG)==0){
-        iTemp1 = GetADCValue(ICHG_ADC);
+        iTemp1 = ADC_LOOKUP_1st_OCV_CURRENT_RANGE - 2;//charger=2A ==>4p cell=0.1C
+        //iTemp1 = GetADCValue(ICHG_ADC);
       }else{
         iTemp1 = GetADCValue(IDSG_ADC);
       }

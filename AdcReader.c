@@ -78,16 +78,16 @@ unsigned int GetADCValue(unsigned char ADC_Channel)
   
   switch(ADC_Channel){
     case IDSG_ADC:
-      ADCresults_Avg += DSG_OP_ADC_OFFSET;
+      ADCresults_Avg -= DSG_OP_ADC_OFFSET;
       break;
     case ICHG_ADC:
-      ADCresults_Avg += CHG_OP_ADC_OFFSET;
+      ADCresults_Avg -= CHG_OP_ADC_OFFSET;
       break;
     case T1_ADC:
-      ADCresults_Avg += NTC_ADC_OFFSET;
+      ADCresults_Avg -= NTC_ADC_OFFSET;
       break;
     case Vbat_ADC:
-      ADCresults_Avg += VBAT_ADC_OFFSET;
+      ADCresults_Avg -= VBAT_ADC_OFFSET;
       break;
     default:  
       break;

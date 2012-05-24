@@ -51,3 +51,10 @@ Ver 2
 2012/05/22	[BUG]modify CoulombCounter.c
 2012/05/22	Add ADP Control function (InitADPControl(), setADPControlPin(unsigned char enable)) in CoulombCounter.c
 2012/05/22	Cycle Count and control for charger function Done
+Ver 3
+2012/05/23	[BUG]修改 SOC capacity 設定值for 4P cell on DSG and CHG only use 0.1C current
+2012/05/23    **[未修改BUG] SOC capacity 設定值在 CHG的比較值，因為OP Amp gain不一樣
+2012/05/23	Remove MOSFET Fail Check in StartUp function
+2012/05/23	Remove 2nd_UV relesed check By Release Voltage, and 用charger 電流來release
+2012/05/23	[BUG]修改adc值加校正offset值 (理論值=實際值-Offset)
+
