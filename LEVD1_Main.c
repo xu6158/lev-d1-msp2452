@@ -10,8 +10,8 @@
 unsigned int G_Module_Status;
 unsigned char G_uc_SystemFailureCode;
 unsigned int G_Activate_Action_Status;
-unsigned char G_CHG_CV_MODE_Cycle_Count;
-
+//unsigned char G_CHG_CV_MODE_Cycle_Count;
+unsigned int G_Activate_Action_Status_Other1;
 
 unsigned char Suspend_Func();
 //////////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ unsigned char Startup_Func()
   //InitAdcReader();
   InitInputSignalGetting();
   InitMosControl();
-
+  
   _EINT();
   
   StartAdcConversion();
@@ -101,7 +101,9 @@ unsigned char Startup_Func()
   G_Module_Status = 0;
   G_uc_SystemFailureCode = SystemNormal;
   G_Activate_Action_Status = 0;
+  G_Activate_Action_Status_Other1 = 0;
   //return ShippingMode;
+  InitCoulombCounter();
 
   //Power-on self-test
   G_uc_SysModeStatusCode = POSTMode;
@@ -114,7 +116,6 @@ unsigned char Startup_Func()
       return FailureMode;
     }
 
-  InitCoulombCounter();
 
   return NormalMode;
 }
@@ -128,7 +129,8 @@ unsigned char Normal_Func(){
 
   //Clear Activate Action Flag
   G_Activate_Action_Status = 0;
-  G_CHG_CV_MODE_Cycle_Count = 0;
+  G_Activate_Action_Status_Other1  = 0;
+  //G_CHG_CV_MODE_Cycle_Count = 0;
   //G_DSG_CHG_OC_Delay_Count = 0;
   G_2ND_OV_UV_Delay_Count = 0;
   
@@ -438,6 +440,7 @@ unsigned char Normal_Func(){
     ///////////////////////////////////////////////////////////////////////////////
     if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
       G_Activate_Action_Status = 0;
+      G_Activate_Action_Status_Other1 = 0;
       return ShutdownMode;
     }
     if(G_Activate_Action_Status & BUTTON_CLICK_FLAG){
@@ -451,15 +454,19 @@ unsigned char Normal_Func(){
       DisplayCapacity(getRealCapacityByCell(iTemp2,iTemp1), true);
     }
     
-//    //into suspend mode
-//    if(G_Activate_Action_Status & SUSPEND_COUNTING_FINISH){
-//      G_uc_SysModeStatusCode = Suspend_Func();
-//    }
+    //into suspend mode
+    if(G_Activate_Action_Status & SUSPEND_COUNTING_FINISH){
+      //Coulomb Counter Stop
+      G_Activate_Action_Status &= ~ACCUMULATING_Q_ENABLE;
+      G_uc_SysModeStatusCode = Suspend_Func();
+      //Coulomb Counter Start
+      G_Activate_Action_Status |= ACCUMULATING_Q_ENABLE;
+    }
   
     __delay_cycles(6000);  // 6ms ==> 1MHz clock
-//    if(G_uc_SysModeStatusCode != NormalMode){
-//      return G_uc_SysModeStatusCode;
-//    }
+    if(G_uc_SysModeStatusCode != NormalMode){
+      return G_uc_SysModeStatusCode;
+    }
 
   } //while(1)
   
@@ -476,12 +483,14 @@ unsigned char Failure_Func(){
   setBlinkLED(SystemFailBlinkLED, true);
   
   G_Activate_Action_Status =0;
+  G_Activate_Action_Status_Other1 = 0;
   while(1){
     if(G_uc_SysModeStatusCode != FailureMode){
       return G_uc_SysModeStatusCode;
     }
     if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
       G_Activate_Action_Status = 0;
+      G_Activate_Action_Status_Other1 = 0;
       return ShutdownMode;
     }
   };
@@ -498,12 +507,14 @@ unsigned char Shutdown_Func(){
   //BlinkLED(SystemFailBlinkLED, true);
   
   G_Activate_Action_Status = 0;
+  G_Activate_Action_Status_Other1 = 0;
   while(1){
     if(G_uc_SysModeStatusCode != ShutdownMode){
       return G_uc_SysModeStatusCode;
     }
     if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
       G_Activate_Action_Status = 0;
+      G_Activate_Action_Status_Other1 = 0;
       return StartUp;
     }
   };
@@ -516,7 +527,8 @@ unsigned char Calibration_Func(){
   setBlinkLED(LED_SET_ALL, false);
   DisplayLED(LED_SET_ALL, DeviceOn);
   G_Activate_Action_Status = 0;
-  G_CHG_CV_MODE_Cycle_Count = 0;
+  G_Activate_Action_Status_Other1 = 0;
+  //G_CHG_CV_MODE_Cycle_Count = 0;
   //G_DSG_CHG_OC_Delay_Count = 0;
   G_2ND_OV_UV_Delay_Count = 0;
   __delay_cycles(10000);  // 10ms ==> 1MHz clock
@@ -528,6 +540,7 @@ unsigned char Calibration_Func(){
     }
     if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
       G_Activate_Action_Status = 0;
+      G_Activate_Action_Status_Other1 = 0;
       setMosFET(MOSFET_CHG, DeviceOff);
       setMosFET(MOSFET_DSG, DeviceOff);
       return StartUp;
@@ -544,14 +557,26 @@ unsigned char Suspend_Func(){
   G_uc_SysModeStatusCode = SuspendMode;
   //setBlinkLED(LED2, true);
   
+  
+
   while(1){
     setMosFET(MOSFET_CHG, DeviceOff);
     setMosFET(MOSFET_DSG, DeviceOff);
-    //OffAdcReader();
+    ///////////////////////////////////////////////////////
+    //解決 bUTTON_LONG_PRESS 進入 SuspendMode 時，
+    // BUTTON_CLICK 無作用.
+    G_Activate_Action_Status &= ~BUTTON_LONG_PRESS_FLAG;
+    
     ///////////////////////////////////////////////////////
     // into Low Power Mode
     G_Activate_Action_Status |= ENABLE_SUSPEND_WAKE_UP_COUNTER;
+    
+    ///////////////////////////////////////////////////////
+    G_Activate_Action_Status_Other1 |= Low_Power_Mode;
     _BIS_SR(LPM3_bits);                       // Enter LPM3 w/interrupt
+    ///////////////////////////////////////////////////////
+
+    
     __delay_cycles(10);
     if(G_Activate_Action_Status & SUSPEND_WAKE_UP_COUNTING_FINISH){
       G_Activate_Action_Status &= ~SUSPEND_WAKE_UP_COUNTING_FINISH;
@@ -563,6 +588,11 @@ unsigned char Suspend_Func(){
     //InitAdcReader();
     __delay_cycles(100000);  // 100ms ==> 1MHz clock
     __delay_cycles(100000);  // 100ms ==> 1MHz clock
+    if(G_Activate_Action_Status & BUTTON_CLICK_FLAG){
+      G_Activate_Action_Status &= ~BUTTON_CLICK_FLAG;
+      break;
+    }
+    
     // Start ADC conversion
     StartAdcConversion();
     // get current
@@ -579,12 +609,13 @@ unsigned char Suspend_Func(){
 //      break;
   }
   G_Activate_Action_Status = 0;
+  G_Activate_Action_Status_Other1 = 0;
+  
   return NormalMode;
 }
 
   //_BIS_SR(LPM3_bits);                       // Enter LPM3 w/interrupt
   //__bic_SR_register_on_exit(LPM0_bits);  // Clear LPM0 bits from 0(SR) use in interrupt
-
 
 
 

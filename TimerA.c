@@ -6,8 +6,12 @@
 | Timer_A will go to interrupt when TACCR0 exceeded specific time (ex: 50ms) |
 \****************************************************************************/
 
-#define _half_1_second_count_     10  // 10 * 50ms = 500ms = 0.5 sec
-#define _1_second_count_          20  // 20 * 50ms = 1000ms = 1 sec
+//#define _half_1_second_count_     10  // 10 * 50ms = 500ms = 0.5 sec
+//#define _1_second_count_          20  // 20 * 50ms = 1000ms = 1 sec
+#define _half_1_second_count_     50  // 50 * 10ms = 500ms = 0.5 sec
+#define _1_second_count_          100  // 100 * 10ms = 1000ms = 1 sec
+
+//////////////////////////////////////////////////////////////////////////////
 unsigned char Half_Timer_Counter;
 unsigned char Timer_Counter;
 unsigned char Button_Timer_Counter;
@@ -23,7 +27,8 @@ void InitTimerA()
 {
   //BCSCTL3 |= LFXT1S_2;                     // ACLK VLO
   //TACCR0 = 624;                              // 50ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
-  TACCR0 = 620;                              // 50ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
+  //TACCR0 = 620;                              // 50ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
+  TACCR0 = 120;                              // 10ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
   //TACTL = TASSEL_2 + MC_1 + TAIE + TACLR;  // SMCLK, upmode, interrupt, reset
   TACTL = TASSEL_1 + MC_1 + TAIE + TACLR;    // ACLK, upmode, interrupt, reset
   
@@ -76,8 +81,11 @@ __interrupt void Timer_A(void)
         }else{
           Suspend_WAKE_UP_Timer_Counter = 0;
           G_Activate_Action_Status |= SUSPEND_WAKE_UP_COUNTING_FINISH;
-          __bic_SR_register_on_exit(LPM3_bits);  // Clear LPM3 bits from 0(SR) use in interrupt
+          ////////////////////////////////////////////////////////////////////////////////////
+          __bic_SR_register_on_exit(LPM3_bits);  // Clear LPM0 bits from 3(SR) use in interrupt    
           __delay_cycles(10);
+          G_Activate_Action_Status_Other1 &= ~Low_Power_Mode;
+          ////////////////////////////////////////////////////////////////////////////////////
         }
       }else{
         Suspend_WAKE_UP_Timer_Counter = 0;
@@ -275,104 +283,3 @@ __interrupt void Timer_A(void)
 //}
 
 
-#if 0
-
-//void OnPress(unsigned int capTimer)
-//{
-//  //ButtonCapFlag = 0;
-//  //OnPressTime = capTimer;
-//  //TACCTL1 |= CCIE;      // Enable interrupt, CCR1
-//}
-//
-//void OnLongPress(unsigned int shutdownTimer)
-//{
-//  //OnLongPressTime = shutdownTimer;
-//}
-//
-//
-//
-//char IsButtonPressed()
-//{
-//  return (P1IN & BUTTON_PORT) ? 1 : 0;
-//}
-//
-//void EnableOCPTimer(char isEnabled)
-//{
-//  OCTimerCapFlag = (isEnabled) ? true : false;
-//  Delay_Count = 0;
-//}
-// Timer_A3 Interrupt Vector (TA0IV) handler
-#pragma vector=TIMER0_A1_VECTOR
-__interrupt void Timer_A(void)
-{
-  switch( TA0IV )
-  {
-   case  2:                                 // CCR1 is used
-     if (IsButtonPressed())
-     {
-       ButtonCapFlag = 1;
-       OnPressDelayCounter++;
-     }
-     else if ( (!(IsButtonPressed())) && 
-               (ButtonCapFlag) && 
-               (OnPressDelayCounter < BUTTON_PRESSED_ONCE) )
-     {
-       //P2OUT ^= 0x10;
-       OnPressFlag = true;
-       OnPressDelayCounter = 0;
-       ButtonCapFlag = 0;
-     }
-     else if (!(IsButtonPressed()))
-     {
-       ButtonCapFlag = 0;
-       OnPressDelayCounter = 0;
-       OnPressFlag = false;
-     }
-     break;
-   case  4: break;                          // CCR2 not used
-   case 10:                                 // overflow
-     TimeCallingFunctionForSOC();
-     if ((BAL_FLAG) && (Bal_Delay++ >= DELAY_TIME_10SEC))
-     {
-       Bal_Delay = 0;
-       BAL_FLAG = false;
-       DisableAllBalance();
-     }
-     
-     if ((WAKEUP_TIMEOUT) && (Delay_Count++ >= DELAY_TIME_5SEC))
-     {
-       Delay_Count = 0;
-       WAKEUP_TIMEOUT = false;
-     }
-     
-     if ( (OCTimerCapFlag) && (Delay_Count++ >= DELAY_TIME_5SEC) )
-     {
-       if (COC_FLAG) {
-         COC_FLAG = false;
-       } else if (DOC_FLAG) {
-         DOC_FLAG = false;
-       }
-       Delay_Count = 0;
-       OCTimerCapFlag = false;
-     }
-     
-     if ( IsButtonPressed() && (OnLongPressDelayCounter++ >= BUTTON_PRESSED_4SEC) )
-     {
-       //P2OUT ^= 0x08;
-       OnLongPressFlag = true;
-       OnLongPressDelayCounter = 0;
-       __bic_SR_register_on_exit(LPM0_bits);
-       //__bic_SR_register_on_exit(LPM3_bits);
-     }  
-     else if (!IsButtonPressed())
-     {
-       OnLongPressDelayCounter = 0;
-       OnLongPressFlag = false;
-     }
-     
-     break;
-  }
-}
-
-
-#endif

@@ -1798,6 +1798,12 @@
     <file>
       <name>$PROJ_DIR$\SystemInitialData\SystemInformation.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\SystemInitialData\SystemInformation_36V.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\SystemInitialData\SystemInformation_48V.h</name>
+    </file>
   </group>
   <file>
     <name>$PROJ_DIR$\AdcReader.c</name>

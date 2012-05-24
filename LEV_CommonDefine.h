@@ -40,7 +40,8 @@ extern unsigned char G_uc_SysModeStatusCode;
 extern unsigned int G_Module_Status;
 extern unsigned char G_uc_SystemFailureCode;
 extern unsigned int G_Activate_Action_Status;
-extern unsigned char G_CHG_CV_MODE_Cycle_Count;
+//extern unsigned char G_CHG_CV_MODE_Cycle_Count;
+extern unsigned int G_Activate_Action_Status_Other1;
 
 //////////////////////////////////////
 
@@ -87,3 +88,29 @@ extern unsigned char G_CHG_CV_MODE_Cycle_Count;
 #define SUSPEND_WAKE_UP_COUNTING_FINISH (0x2000)    // 
 #define CAPACITY_DISLALY                (0x4000)    // 
 #define ACCUMULATING_Q_ENABLE           (0x8000)    // 
+
+
+/* Module Status Control Bits */
+/* For G_Activate_Action_Status_Other1 ; unsigned int */
+//Low byte
+#define Low_Power_Mode   (0x0001)    //
+//#define _No_Used_   (0x0002)    //
+//#define _No_Used_   (0x0004)    //
+//#define _No_Used_   (0x0008)    //
+//#define _No_Used_   (0x0010)    //
+//#define _No_Used_   (0x0020)    //
+//#define _No_Used_   (0x0040)    //
+//#define _No_Used_   (0x0080)    //
+////Hight byte
+//#define _No_Used_   (0x0100)    //
+//#define _No_Used_   (0x0200)    //
+//#define _No_Used_   (0x0400)    //
+//#define _No_Used_   (0x0800)    //
+//#define _No_Used_   (0x1000)    //
+//#define _No_Used_   (0x2000)    //
+//#define _No_Used_   (0x4000)    //
+//#define _No_Used_   (0x8000)    //
+
+
+
+

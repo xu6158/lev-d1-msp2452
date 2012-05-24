@@ -18,16 +18,16 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=-327743098
+Checksum=1946645563
 [State Storage]
-Control Register=0
+Control Register=63546
 [Sequencer]
-Control Register=0
-NextState0=0
-NextState1=0
+Control Register=63546
+NextState0=63546
+NextState1=63546
 [Action Register]
-Break=2
-State Storage=2
+Break=1
+State Storage=1
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -56,7 +56,7 @@ LogFile=_ ""
 Enabled=0
 [DriverProfiling]
 Enabled=0
-Mode=1551069797
+Mode=417374552
 Graph=0
 Symbiont=0
 [Breakpoints]

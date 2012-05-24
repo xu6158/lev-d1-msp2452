@@ -33,3 +33,21 @@ Ver 10
 2012/05/21      修改 SOCTable to 4 current line based on DSG/CHG current
 2012/05/21      suspend mode wakeup 加delay
 2012/05/21      adc值加校正offset值
+
+LEV 48V/36V Thick type (extend V10)
+Ver 1
+2012/05/22	extend from Nev LEV D1 V10
+Ver 2
+2012/05/22	modify SystemInformation.h
+2012/05/22	add two head files ( SystemInformation_36V.h, SystemInformation_48V.h)
+2012/05/22	remove G_CHG_CV_MODE_Cycle_Count var for all project
+2012/05/22	add var "G_Activate_Action_Status_Other1" and set define at "LEV_CommonDefine.h" and modify "IIC_Slave.c"
+2012/05/22	add SystemLPM_Mode() function at LEVD1_Main.c
+2012/05/22	in suspend mode ==> BUTTON_CLICK  can Wake Up
+2012/05/22	modify timer base time from 50ms to 10 ms
+2012/05/22	[BUG]解決 BUTTON_LONG_PRESS 進入 SuspendMode 時， BUTTON_CLICK 無作用.( in Suspend func, 清除BUTTON_LONG_PRESS_Flag)
+2012/05/22	[BUG]解決 進入 SuspendMode 時 ACCUMULATING_Q_ENABLE 沒有被停止 及 離開 SuspendMode 時 ACCUMULATING_Q_ENABLE 沒有被設定.
+2012/05/22	[BUG]ADC_CYCLECOUNT_THRESHOLD 修改及設定 (systeminformation.h and systemconfiginitial.s43) 
+2012/05/22	[BUG]modify CoulombCounter.c
+2012/05/22	Add ADP Control function (InitADPControl(), setADPControlPin(unsigned char enable)) in CoulombCounter.c
+2012/05/22	Cycle Count and control for charger function Done

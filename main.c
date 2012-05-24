@@ -1,8 +1,6 @@
 
 //#include "io430.h"
 //#include "msp430g2452.h"
-//#include "LEV_CommonDefine.h"
-
 
 #include "LEV_PrjDefine.h"
 
@@ -51,7 +49,9 @@ void main( void )
   
   
   
-  FirstInitial_Func();  
+  FirstInitial_Func(); 
+  
+
   
   while (1)
   {

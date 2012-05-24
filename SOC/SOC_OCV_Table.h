@@ -1,5 +1,5 @@
 
-#include "..\SystemInitialData\SystemInformation.h"
+//#include "..\SystemInitialData\SystemInformation.h"
 
 
 

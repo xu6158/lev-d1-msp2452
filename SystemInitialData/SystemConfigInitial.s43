@@ -1,6 +1,5 @@
 
 #include "SystemInformation.h"
-
            
 ////////////////////////////////////////////////////////////
 //  LEV System Information
@@ -32,15 +31,15 @@
         DW _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_      ;36 	// 2 bytes
         DW _SOC_CELL_OV_VOLTAGE_                        ;38 	// 2 bytes
         DW _SOC_CELL_UV_VOLTAGE_                        ;40 	// 2 bytes
-        DW _CYCLECOUNT_DSG_CAP_THRESHOLD_               ;42 	// 2 bytes
-        DW _CYCLECOUNT_FOR_CHG_LEVEL_1_                 ;44 	// 2 bytes
-        DW _CYCLECOUNT_FOR_CHG_LEVEL_2_                 ;46 	// 2 bytes
+        DL _ADC_CYCLECOUNT_THRESHOLD_                   ;42 	// 4 bytes
+        DW _CYCLECOUNT_FOR_CHG_LEVEL_1_                 ;46 	// 2 bytes
+        DW _CYCLECOUNT_FOR_CHG_LEVEL_2_                 ;48 	// 2 bytes
         
-        DW _ADC_LOOKUP_1st_OCV_CURRENT_RANGE_     //48; 2bytes; CURRENT_OF_DSG_STATUS ~ 650mA
-        DW _ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_     //50; 2bytes; 650mA ~ 1950mA
-        DW _ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_     //52; 2bytes; 1950mA ~ 3900mA
+        DW _ADC_LOOKUP_1st_OCV_CURRENT_RANGE_     //50; 2bytes; CURRENT_OF_DSG_STATUS ~ 650mA
+        DW _ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_     //52; 2bytes; 650mA ~ 1950mA
+        DW _ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_     //54; 2bytes; 1950mA ~ 3900mA
 
-#if 0           
+#if 1           
 
         ; TEST  Information
         ORG     Flash_segment_C
@@ -56,53 +55,10 @@
         DB _DSG_OP_ADC_OFFSET_         					;	1 byte
         DB _VBAT_ADC_OFFSET_           					;	1 byte
         DB _NTC_ADC_OFFSET_            					;	1 byte
-          
+        DW _CURRENT_CYCLECOUNT_                 ; 2 bytes	
+        DL _CURRENT_ADC_ACCUMULATING_Q_         ; 4 bytes	
           
 #endif
 
-
-
-#if 0            
-        ; TEST  Information
-        ORG     Flash_segment_C
-        
-        DW _DOC_PROTECTION_               
-        DW _COC_PROTECTION_               
-        DW _2ND_BATTERY_OV_PROTECTION_    
-        DW _2ND_BATTERY_UV_PROTECTION_    
-        DW _DSG_OT_PROTECTION_            
-        DW _DSG_OT_RELEASE_               
-        DW _CHG_OT_PROTECTION_            
-        DW _CHG_OT_RELEASE_
-        
-        
-        DW _DOC_PROTECTION_               
-        DW _COC_PROTECTION_               
-        DW _2ND_BATTERY_OV_PROTECTION_    
-        DW _2ND_BATTERY_UV_PROTECTION_    
-        DW _DSG_OT_PROTECTION_            
-        DW _DSG_OT_RELEASE_               
-        DW _CHG_OT_PROTECTION_            
-        DW _CHG_OT_RELEASE_               
-        
-        DW _DOC_PROTECTION_               
-        DW _COC_PROTECTION_               
-        DW _2ND_BATTERY_OV_PROTECTION_    
-        DW _2ND_BATTERY_UV_PROTECTION_    
-        DW _DSG_OT_PROTECTION_            
-        DW _DSG_OT_RELEASE_               
-        DW _CHG_OT_PROTECTION_            
-        DW _CHG_OT_RELEASE_               
-        
-        DW _DOC_PROTECTION_               
-        DW _COC_PROTECTION_               
-        DW _2ND_BATTERY_OV_PROTECTION_    
-        DW _2ND_BATTERY_UV_PROTECTION_    
-        DW _DSG_OT_PROTECTION_            
-        DW _DSG_OT_RELEASE_               
-        DW _CHG_OT_PROTECTION_            
-        DW _CHG_OT_RELEASE_               
-
-#endif
         END
 

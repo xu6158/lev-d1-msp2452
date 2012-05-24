@@ -1,5 +1,6 @@
-#include "SOC_OCV_Table.h"
 
+#include "SOC_OCV_Table.h"
+#include "..\LEV_PrjDefine.h"
 //unsigned char OV_Capacity;
 //unsigned char UV_Capacity;
 

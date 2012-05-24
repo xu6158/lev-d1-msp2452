@@ -206,9 +206,23 @@ unsigned char getRealCapacityByCell(int ADC_Voltage, int ADC_current);
 
 
 ////////////////////////////////////////////
+// ADP Control Function
+////////////////////////////////////////////
+////////////////////////////////////////////
 // Coulomb Counter Function
 ////////////////////////////////////////////
 void InitCoulombCounter();
 void AccumulatingQ();
 void WriteCoulombCounterDataToFlash();
+////////////////////////////////////////////
+// ADP Control Function in Coulomb Counter.C
+////////////////////////////////////////////
+#define ADP_Control_PORT_REN      P1REN  //1: Pullup/pulldown resistor enabled, 0: Pullup/pulldown resistor disabled
+#define ADP_Control_PORT_OUT      P1OUT  //1: The output is high or Pullup, 0: The output is low or pulldown
+#define ADP_Control_PORT_DIR      P1DIR  //1: The port pin is switched to output direction, 0: The port pin is switched to input direction
+#define ADP_Control_PORT_SEL      P1SEL
+#define ADP_Control_Pin           BIT4
 
+void InitADPControl();
+void setADPControlPin(unsigned char enable);
+void CheckAndSetChagerVoltage();

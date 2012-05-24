@@ -156,7 +156,9 @@ void checkRXAndSetTX()
       SLV_RxTxBuffer[3] = G_uc_SystemFailureCode;
       SLV_RxTxBuffer[4] = G_Activate_Action_Status;
       SLV_RxTxBuffer[5] = G_Activate_Action_Status >> 8;
-      SLV_RxTxBuffer[6] = G_CHG_CV_MODE_Cycle_Count;
+      //SLV_RxTxBuffer[6] = G_CHG_CV_MODE_Cycle_Count;
+      SLV_RxTxBuffer[6] = G_Activate_Action_Status_Other1;
+      SLV_RxTxBuffer[7] = G_Activate_Action_Status_Other1 >> 8;
       break;
     /////////////////////////////////////////////
     //set mosfet on/off,
@@ -437,7 +439,6 @@ __interrupt void USI_TXRX (void)
                 USICTL0 &= ~USIOE;            // SDA = input
                 I2C_State = 0;                // Reset state machine
                 Bytecount = 0;
-                // LPM0_EXIT;                  // Exit active for next transfer
               }
               else                          // Ack received
               {
