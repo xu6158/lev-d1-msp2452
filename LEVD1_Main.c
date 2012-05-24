@@ -249,10 +249,10 @@ unsigned char Normal_Func(){
     /////////////////////////////////////////////////////////
     // Check abnormal Flag
     /////////////////////////////////////////////////////////
-    if((G_Module_Status & Module_2nd_OV) && (G_Module_Status & Module_2nd_UV)) {
-      G_uc_SystemFailureCode = _2nd_Level_Vol_Fail;
-      return FailureMode;
-    }
+//    if((G_Module_Status & Module_2nd_OV) && (G_Module_Status & Module_2nd_UV)) {
+//      G_uc_SystemFailureCode = _2nd_Level_Vol_Fail;
+//      return FailureMode;
+//    }
     /////////////////////////////////////////////////////////
     //2012/05/21 remove Fail mode function, hsinmo
 //    if((G_Module_Status & Module_RELAX) && ((G_Module_Status & Module_DSG)==0)){
@@ -451,15 +451,15 @@ unsigned char Normal_Func(){
       DisplayCapacity(getRealCapacityByCell(iTemp2,iTemp1), true);
     }
     
-    //into suspend mode
-    if(G_Activate_Action_Status & SUSPEND_COUNTING_FINISH){
-      G_uc_SysModeStatusCode = Suspend_Func();
-    }
+//    //into suspend mode
+//    if(G_Activate_Action_Status & SUSPEND_COUNTING_FINISH){
+//      G_uc_SysModeStatusCode = Suspend_Func();
+//    }
   
     __delay_cycles(6000);  // 6ms ==> 1MHz clock
-    if(G_uc_SysModeStatusCode != NormalMode){
-      return G_uc_SysModeStatusCode;
-    }
+//    if(G_uc_SysModeStatusCode != NormalMode){
+//      return G_uc_SysModeStatusCode;
+//    }
 
   } //while(1)
   
@@ -561,6 +561,7 @@ unsigned char Suspend_Func(){
     setMosFET(MOSFET_DSG, DeviceOn);
     //initial
     //InitAdcReader();
+    __delay_cycles(100000);  // 100ms ==> 1MHz clock
     __delay_cycles(100000);  // 100ms ==> 1MHz clock
     // Start ADC conversion
     StartAdcConversion();
