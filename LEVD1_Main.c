@@ -6,9 +6,6 @@
 #define _2nd_Priority_Values  5
 #define _3rd_Priority_Values  3
 
-#define OC_PROTECTION_DELAY_LOOP_COUNT  5
-#define OV_PROTECTION_DELAY_LOOP_COUNT  5
-#define UV_PROTECTION_DELAY_LOOP_COUNT  200 //about 2 sec = 200
 unsigned int G_Module_Status;
 unsigned char G_uc_SystemFailureCode;
 unsigned int G_Activate_Action_Status;
@@ -16,12 +13,7 @@ unsigned int G_Activate_Action_Status;
 unsigned int G_Activate_Action_Status_Other1;
 
 unsigned char Suspend_Func();
-//////////////////////////////////////////////////////////////////////////////
-// 2012/05/07 Remove DOC Propection, hsinmo
-//Hi 4-bit: DSG count, Lo 4-bit: CHG count
-unsigned char G_DSG_CHG_OC_Delay_Count;
-//Hi 4-bit: 2nd OV count, Lo 4-bit: 2nd UV count
-unsigned char G_2ND_OV_UV_Delay_Count;
+
 
 //////////////////////////////////////////////////////////////////////////////
 // at Timer A
@@ -37,16 +29,11 @@ unsigned int values;
 
 //////////////////////////////////////////////////////////////////////////////
 unsigned char FirstInitial_Func(){
-  unsigned char i;
   
   // Initialize LEDs
   InitLEDPort(); 
-  for(i=0; i<5; i++){
-    P2OUT ^= LED_PORT2;
-    __delay_cycles(100000);  // 100ms ==> 1MHz clock
-  }
-  P2OUT &=~ALL_LED_PORT;
-  __delay_cycles(100000);  // 100ms ==> 1MHz clock
+  InitBlinkLEDs();
+  
 //  __delay_cycles(100000);  // 100.8 ms ==> 1MHz clock
 //  __delay_cycles(10000);  // 10.1ms ==> 1MHz clock
 //  __delay_cycles(1000);  // 1ms ==> 1MHz clock
@@ -71,18 +58,13 @@ unsigned char FirstInitial_Func(){
 
 unsigned char Startup_Func()
 {
-  unsigned char i;
   
   //Initialization
   _DINT();
   // Initialize LEDs
-  InitLEDPort(); 
-  for(i=0; i<5; i++){
-    P2OUT ^= LED_PORT2;
-    __delay_cycles(100000);  // 100ms ==> 1MHz clock
-  }
-  P2OUT &=~ALL_LED_PORT;
-  
+  InitLEDPort();
+  InitBlinkLEDs();
+ 
 
   __delay_cycles(100000);  // 100ms ==> 1MHz clock
   
@@ -122,7 +104,18 @@ unsigned char Startup_Func()
 }
 
 unsigned char Normal_Func(){
+  //////////////////////////////////////////////////////////////////////////////
+  // 2012/05/07 Remove DOC Propection, hsinmo
+  //unsigned int DSG_OC_Delay_Count;
+  unsigned int CHG_OC_Delay_Count;
+  unsigned int _2ND_OV_Delay_Count;
+  unsigned int _2ND_UV_Delay_Count;
   unsigned int iTemp1, iTemp2;
+  
+  //DSG_OC_Delay_Count = 0;
+  CHG_OC_Delay_Count = 0;
+  _2ND_OV_Delay_Count = 0;
+  _2ND_UV_Delay_Count = 0;
   
   setMosFET(MOSFET_CHG, DeviceOn);
   setMosFET(MOSFET_DSG, DeviceOn);
@@ -133,7 +126,6 @@ unsigned char Normal_Func(){
   G_Activate_Action_Status_Other1  = 0;
   //G_CHG_CV_MODE_Cycle_Count = 0;
   //G_DSG_CHG_OC_Delay_Count = 0;
-  G_2ND_OV_UV_Delay_Count = 0;
   
   //Coulomb Counter Start
   G_Activate_Action_Status |= ACCUMULATING_Q_ENABLE;
@@ -164,13 +156,13 @@ unsigned char Normal_Func(){
   
     
     if( iTemp1 >= ADC_COC_PROTECTION && ((G_Module_Status & Module_C_OC) == 0 )){
-      G_DSG_CHG_OC_Delay_Count++;
-      if((G_DSG_CHG_OC_Delay_Count & 0x0f) >= OC_PROTECTION_DELAY_LOOP_COUNT){
+      CHG_OC_Delay_Count++;
+      if(CHG_OC_Delay_Count >= OC_PROTECTION_DELAY_LOOP_COUNT){
         G_Module_Status |= Module_C_OC;
         //setBlinkLED(OC_BlinkLED, true);
       }
     }else{
-      G_DSG_CHG_OC_Delay_Count &= ~(0x0f);
+      CHG_OC_Delay_Count = 0;
     }
 //////////////////////////////////////////////////////////////////////////////
 // 2012/05/07 Remove DOC Propection, hsinmo
@@ -194,21 +186,22 @@ unsigned char Normal_Func(){
     if( iTemp1 > ADC_2ND_BATTERY_OV_PROTECTION &&
         (G_Module_Status & Module_2nd_OV) == 0)
     {
-      G_2ND_OV_UV_Delay_Count++;
-      if(G_2ND_OV_UV_Delay_Count >= OV_PROTECTION_DELAY_LOOP_COUNT){
+      _2ND_OV_Delay_Count++;
+      if(_2ND_OV_Delay_Count >= OV_PROTECTION_DELAY_LOOP_COUNT){
         G_Module_Status |= Module_2nd_OV;
         //setBlinkLED(OV_UV_BlinkLED, true);
       }
     }else if( iTemp1 < ADC_2ND_BATTERY_UV_PROTECTION && 
         (G_Module_Status & Module_2nd_UV) == 0)
     {
-      G_2ND_OV_UV_Delay_Count++;
-      if(G_2ND_OV_UV_Delay_Count >= UV_PROTECTION_DELAY_LOOP_COUNT){
+      _2ND_UV_Delay_Count++;
+      if(_2ND_UV_Delay_Count >= UV_PROTECTION_DELAY_LOOP_COUNT){
         G_Module_Status |= Module_2nd_UV;
         //setBlinkLED(OV_UV_BlinkLED, true);
       }
     }else{
-      G_2ND_OV_UV_Delay_Count = 0;
+      _2ND_UV_Delay_Count = 0;
+      _2ND_OV_Delay_Count = 0;
     }
     
     //Cell OV/UV protection and release
@@ -547,10 +540,9 @@ unsigned char Calibration_Func(){
   //setBlinkLED(LED_SET_ALL, false);
   //DisplayLED(LED_SET_ALL, DeviceOn);
   G_Activate_Action_Status = 0;
-  G_Activate_Action_Status_Other1 = 0;
-  //G_CHG_CV_MODE_Cycle_Count = 0;
-  //G_DSG_CHG_OC_Delay_Count = 0;
-  G_2ND_OV_UV_Delay_Count = 0;
+  //G_Activate_Action_Status_Other1 = 0;
+
+
   __delay_cycles(10000);  // 10ms ==> 1MHz clock
   //BlinkLED(SystemFailBlinkLED, true);
   

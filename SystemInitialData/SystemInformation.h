@@ -1,11 +1,13 @@
 
 /* ----------------------- Defines ------------------------------------------*/
-/*! \brief If  5 LEDs TYPE is enabled. */
-#define _5LEDs_TYPE_                                    (  1 )
+/*! \brief If  5 LEDs and Thick TYPE is enabled. 
+    «p«¬ 48V/36V 5LEDs  should be '1'.
+    Á¡«¬ 36V  4LEDs     should be '0'.                      */
+#define _5LEDs_Thick_TYPE_                              (  0 )
 /*! \brief If  5 LEDs TYPE and LEV 48V should be enabled , if 36V should be set '0'*/
 #define _LEV_48_                                        (  1 )
 /*! \brief If  Suspend Mode in Main Function should be enabled */
-#define _SUSPEND_ENABLE_                                (  0 )
+#define _SUSPEND_ENABLE_                                (  1 )
 /*! \brief If  burn-in CALIBRATION data to  Flash_segment_C should be enabled */
 #define _BURN_IN_CALIBRATION_SEGMENT_Flash_segment_C_   (  0 )
 /*! \brief If  Erease CALIBRATION data at Flash_segment_C should be enabled */
@@ -15,16 +17,17 @@
 
 
 /////////////////////////////////////////////////////////
-#if _5LEDs_TYPE_ > 0
+#if _5LEDs_Thick_TYPE_ > 0
 
 #if _LEV_48_ > 0
-#include "SystemInformation_48V.h"
+#include "SystemInformation_Thick_48V.h"
 #else
-#include "SystemInformation_36V.h"
+#include "SystemInformation_Thick_36V.h"
 #endif  //#ifdef _LEV_48_
 
 #else
 
+#include "SystemInformation_ThinType36V.h"
 
 
-#endif  //#ifdef _5LEDs_TYPE_
+#endif  //#ifdef _5LEDs_Thick_TYPE_

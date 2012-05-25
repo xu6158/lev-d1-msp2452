@@ -21,7 +21,7 @@
 |  Batt Capacity (50%) |    ON    |    ON    |    OFF   |   OFF    |
 |  Batt Capacity (25%) |    ON    |    OFF   |    OFF   |   OFF    |
 \******************************************************************/
-#if _5LEDs_TYPE_ > 0
+#if _5LEDs_Thick_TYPE_ > 0
 
 #define RESET_ALL_LED_PORT  /*clear to output*/ \
   P2DIR |= ALL_LED_PORT; /* Set to output direction*/ \
@@ -67,15 +67,24 @@ static unsigned char ScanFlag;
 static unsigned char Show_LED_Codes;
 void InitLEDPort()
 {
-
   P2SEL &= ~(ALL_LED_PORT);
   P2DIR |= ALL_LED_PORT;    // Set P2.3, P2.4, P2.5, P2.6 to output direction
   P2OUT &= ~(ALL_LED_PORT);
   ScanFlag = 0;
   Show_LED_Codes = 0;
   Blink_LED_BIT = 0;
-  
- 
+}
+
+void InitBlinkLEDs(){
+  int i;
+  for(i=0; i<8; i++){
+    P2OUT ^= LED_PORT2;
+    __delay_cycles(100000);  // 100ms ==> 1MHz clock
+    __delay_cycles(100000);  // 100ms ==> 1MHz clock
+    __delay_cycles(100000);  // 100ms ==> 1MHz clock
+  }
+  P2OUT &=~ALL_LED_PORT;
+  __delay_cycles(100000);  // 100ms ==> 1MHz clock
 }
 
 //#define CAPACITY_1          16

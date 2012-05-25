@@ -18,13 +18,13 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=-1032031351
+Checksum=672433332
 [State Storage]
-Control Register=63398
+Control Register=63338
 [Sequencer]
-Control Register=63398
-NextState0=63398
-NextState1=63398
+Control Register=63338
+NextState0=63338
+NextState1=63338
 [Action Register]
 Break=1
 State Storage=1
@@ -56,7 +56,7 @@ LogFile=_ ""
 Enabled=0
 [DriverProfiling]
 Enabled=0
-Mode=38469832
+Mode=1007747628
 Graph=0
 Symbiont=0
 [Breakpoints]
@@ -82,5 +82,9 @@ SR=0
 all registers=0
 File name=
 [Aliases]
-Count=0
+A0=_ "C:\Users\Hsinno.Lin\Documents\順達專案\New_LEVD1\New_LEVD1_Dynapack\New_LEVD1_V5_48V_ext_v10_v7_include_36VThin\LEDDisplay_5LEDScan.c" ""
+A1=_ "C:\Users\Hsinno.Lin\Documents\順達專案\New_LEVD1\New_LEVD1_Dynapack\New_LEVD1_V5_48V_ext_v10_v7_include_36VThin\SOC\SOC_Calculation.c" ""
+A2=_ "C:\Users\Hsinno.Lin\Documents\順達專案\New_LEVD1\New_LEVD1_Dynapack\New_LEVD1_V5_48V_ext_v10_v7_include_36VThin\SystemInitialData\InformationFlashAccess.c" ""
+A3=_ "C:\Users\Hsinno.Lin\Documents\順達專案\New_LEVD1\New_LEVD1_Dynapack\New_LEVD1_V5_48V_ext_v10_v7_include_36VThin\main.c" ""
+Count=4
 SuppressDialog=0

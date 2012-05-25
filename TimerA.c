@@ -60,16 +60,22 @@ __interrupt void Timer_A(void)
    case  4:                                 // CCR2 Not used
      break;
    case 10:                                 // overflow
+#if _5LEDs_Thick_TYPE_ > 0
      if(G_Activate_Action_Status & CAPACITY_DISLALY){
-      Display5LEDsCapacityByScanning();
+       Display5LEDsCapacityByScanning();
     }
+#endif       
     //=========================================================================
     // each Half second into once 
     if(Half_Timer_Counter >= _half_1_second_count_){
       Half_Timer_Counter = 0;
+#if _5LEDs_Thick_TYPE_ > 0
       if(G_Activate_Action_Status_Other1 & Blink_TWO_LED){
         Blink2SeparateLEDs();
       }
+#else
+      BlinkLEDs();
+#endif       
       
       if(G_Activate_Action_Status & ACCUMULATING_Q_ENABLE){
         AccumulatingQ();

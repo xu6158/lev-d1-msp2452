@@ -20,14 +20,38 @@
 |  Batt Capacity (50%) |    ON    |    ON    |    OFF   |   OFF    |
 |  Batt Capacity (25%) |    ON    |    OFF   |    OFF   |   OFF    |
 \******************************************************************/
-#if _5LEDs_TYPE_ == 0
+#if _5LEDs_Thick_TYPE_ == 0
+
+// 4 LEDs
+#define CAPACITY_1          25
+#define CAPACITY_2          50
+#define CAPACITY_3          75
+//#define CAPACITY_4          100
+
+
+#define LED_CAPACITY_1                    LED_PORT1  // one LED on
+#define LED_CAPACITY_2                    (LED_PORT1+LED_PORT2)  // two LEDs on
+#define LED_CAPACITY_3                    (LED_PORT1+LED_PORT2+LED_PORT3)  // three LEDs on
+#define LED_CAPACITY_4                    ALL_LED_PORT
+
+
 unsigned char LED_OUT_BIT;
+
 void InitLEDPort()
 {
-  P2SEL &= ~(LED_SET_ALL);
-  P2DIR |= LED_SET_ALL;    // Set P2.3, P2.4, P2.5, P2.6 to output direction
-  P2OUT &= ~(LED_SET_ALL);
+  P2SEL &= ~(ALL_LED_PORT);
+  P2DIR |= ALL_LED_PORT;    // Set P2.3, P2.4, P2.5, P2.6 to output direction
+  P2OUT &= ~(ALL_LED_PORT);
   LED_OUT_BIT = 0;
+}
+void InitBlinkLEDs(){
+  int i;
+  for(i=0; i<5; i++){
+    P2OUT ^= ALL_LED_PORT;
+    __delay_cycles(100000);  // 100ms ==> 1MHz clock
+  }
+  P2OUT &=~ALL_LED_PORT;
+  __delay_cycles(100000);  // 100ms ==> 1MHz clock
 }
 
 void DisplayCapacity(unsigned char capacity, char isOn)
@@ -47,7 +71,7 @@ void DisplayCapacity(unsigned char capacity, char isOn)
   }
   else
   {
-    P2OUT &= ~LED_SET_ALL;
+    P2OUT &= ~ALL_LED_PORT;
     G_Activate_Action_Status &= ~CAPACITY_DISLALY;
   }
 }

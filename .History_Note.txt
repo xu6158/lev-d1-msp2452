@@ -70,8 +70,13 @@ Ver 5
 2012/05/23	[BUG]修改adc值加校正offset值 (理論值=實際值-Offset)
 2012/05/23	[BUG]修改2nd_UV relesed check By charger current , at that time, status is still UVP, Mos will turn On and off
 2012/05/23	[BUG]解決 進入 SuspendMode 時，無法跳到 CalibrationMode
+2012/05/23	增加 EreaseInformationMemory function and 參數enable 在SystemInformation.h裡
+Ver 6
 2012/05/23	修改Calibration_Func();
 2012/05/23	修改protection delay ; OC_PROTECTION_DELAY_LOOP_COUNT;OV_PROTECTION_DELAY_LOOP_COUNT;UV_PROTECTION_DELAY_LOOP_COUNT
-2012/05/23	增加 EreaseInformationMemory function and 參數enable 在SystemInformation.h裡
+2012/05/24	[BUG]_5LEDs_TYPE_ 改_5LEDs_Thick_TYPE_ and Head File name(不能用#ifdef)
 
-
+Include 36V 薄型 設定及LED display
+Ver 7
+2012/05/24	Include 36V薄型SystemInformation_ThinType_36V.h
+2012/05/24	增加  LED display for 4 LEDs

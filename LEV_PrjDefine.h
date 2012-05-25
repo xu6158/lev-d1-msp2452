@@ -8,22 +8,7 @@
 
 //extern unsigned char gTempChar64[64];
 
-#ifdef _5LEDs_TYPE_
 
-#define DisplayCAPACITY_TIME              2 //sec
-#define LED_PORT1       BIT3    //P2.3
-#define LED_PORT2       BIT4    //P2.4
-#define LED_PORT3       BIT5    //P2.5
-#define LED_PORT4       BIT6    //P2.6
-
-#define ALL_LED_PORT  (LED_PORT1 + LED_PORT2 + LED_PORT3 + LED_PORT4)
-
-void InitLEDPort();
-void DisplayCapacity(unsigned char capacity, char isOn);
-void Display5LEDsCapacityByScanning();
-void Blink2SeparateLEDs();
-
-#else
 /***********************************************************\
 | LEDDisplay.c                                              |
 | #1 P2.3 --> 0x08                                          |
@@ -31,38 +16,30 @@ void Blink2SeparateLEDs();
 | #3 P2.5 --> 0x20                                          |
 | #4 P2.6 --> 0x40                                          |
 \***********************************************************/
-#define LED1                              BIT3  //red
-#define LED2                              BIT4
-#define LED3                              BIT5
-#define LED4                              BIT6
-#define LED_SET_ALL                       (LED1+LED2+LED3+LED4)
-#define LED_CAPACITY_1                    LED1  // one LED on
-#define LED_CAPACITY_2                    (LED1+LED2)  // two LEDs on
-#define LED_CAPACITY_3                    (LED1+LED2+LED3)  // three LEDs on
-#define LED_CAPACITY_4                    LED_SET_ALL
 #define DisplayCAPACITY_TIME              2 //sec
-#define CAPACITY_1          25
-#define CAPACITY_2          50
-#define CAPACITY_3          75
-//#define CAPACITY_4          74
-
-//#define LED_CAPACITY_25                   LED1  // one LED on
-//#define LED_CAPACITY_50                   (LED1+LED2)  // two LEDs on
-//#define LED_CAPACITY_75                   (LED1+LED2+LED3)  // three LEDs on
-//#define LED_CAPACITY_100                  LED_SET_ALL
-
+#define LED_PORT1       BIT3    //P2.3
+#define LED_PORT2       BIT4    //P2.4
+#define LED_PORT3       BIT5    //P2.5
+#define LED_PORT4       BIT6    //P2.6
+#define ALL_LED_PORT  (LED_PORT1 + LED_PORT2 + LED_PORT3 + LED_PORT4)
 void InitLEDPort();
-void setBlinkLED(unsigned char LedNumber, char isOn);
-void DisplayLED(unsigned char LedNumber, char isOn);
+void InitBlinkLEDs();
 void DisplayCapacity(unsigned char capacity, char isOn);
 
+#if _5LEDs_Thick_TYPE_ > 0
+
+void Display5LEDsCapacityByScanning();
+void Blink2SeparateLEDs();
+
+#else
+void setBlinkLED(unsigned char LedNumber, char isOn);
 void BlinkLEDs();
 
-#define SystemFailBlinkLED      LED1
-#define OC_BlinkLED             LED2
-#define OV_UV_BlinkLED          LED3
+//#define SystemFailBlinkLED      LED1
+//#define OC_BlinkLED             LED2
+//#define OV_UV_BlinkLED          LED3
 //#define OT_UT_BlinkLED          LED4
-#define OT_UT_BlinkLED          LED3
+//#define OT_UT_BlinkLED          LED3
 
 #endif
 /************************************************************\

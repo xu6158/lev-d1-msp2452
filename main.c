@@ -76,9 +76,15 @@ void main( void )
       break;
       
     case CalibrationMode:
+#if _5LEDs_Thick_TYPE_ > 0
       G_Activate_Action_Status_Other1 |= Blink_TWO_LED;
       G_uc_SysModeStatusCode = Calibration_Func();
       G_Activate_Action_Status_Other1 &= ~Blink_TWO_LED;
+#else
+      setBlinkLED(ALL_LED_PORT, true);;
+      G_uc_SysModeStatusCode = Calibration_Func();
+      setBlinkLED(ALL_LED_PORT, false);;
+#endif      
       break;
 //    case ShippingMode:
 //      G_uc_SysModeStatusCode = Shipping_Func();
