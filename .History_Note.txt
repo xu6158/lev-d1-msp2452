@@ -56,5 +56,22 @@ Ver 3
 2012/05/23    **[未修改BUG] SOC capacity 設定值在 CHG的比較值，因為OP Amp gain不一樣
 2012/05/23	Remove MOSFET Fail Check in StartUp function
 2012/05/23	Remove 2nd_UV relesed check By Release Voltage, and 用charger 電流來release
+
+To NewLEV D1 V5 extend V3 from "LEV 48V/36V Thick type (extend V10)"
+
+Ver 4
+2012/05/23	[BUG]ADC_LOOKUP_OCV 參數值的_DSG_mA_to_ADC_factor_ 錯誤
+2012/05/23	modify  AccumulatingQ() using in charging status.
+2012/05/23	modify SOC Cycle Count 參數 _ADC_CYCLECOUNT_THRESHOLD_，使用CHG factor 計算
+Ver 5
+2012/05/23	add 5 LEDs Scan function
+2012/05/23	Add ADP Control function ,set in first range is "Low", 因為到Charger 是反向
+2012/05/23	add Blink Two separate LEDs function and Blink_TWO_LED Flag at Calibration_Func()
 2012/05/23	[BUG]修改adc值加校正offset值 (理論值=實際值-Offset)
+2012/05/23	[BUG]修改2nd_UV relesed check By charger current , at that time, status is still UVP, Mos will turn On and off
+2012/05/23	[BUG]解決 進入 SuspendMode 時，無法跳到 CalibrationMode
+2012/05/23	修改Calibration_Func();
+2012/05/23	修改protection delay ; OC_PROTECTION_DELAY_LOOP_COUNT;OV_PROTECTION_DELAY_LOOP_COUNT;UV_PROTECTION_DELAY_LOOP_COUNT
+2012/05/23	增加 EreaseInformationMemory function and 參數enable 在SystemInformation.h裡
+
 

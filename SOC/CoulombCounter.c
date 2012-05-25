@@ -36,19 +36,20 @@ void AccumulatingQ(){
     g_Adc_accumulatingQ = 0;
     CheckAndSetChagerVoltage();
   }
-  temp = GetADCValue(IDSG_ADC);
-  if( temp >= ADC_DETECT_CURRENT_OF_DSG_STATUS){
+  //temp = GetADCValue(IDSG_ADC);
+  temp = GetADCValue(ICHG_ADC);
+  if( temp >= ADC_DETECT_CURRENT_OF_CHG_STATUS){
     g_Adc_accumulatingQ += (unsigned long)temp;
   }
 
 }
 void CheckAndSetChagerVoltage(){
   if(Cyclecount < CYCLECOUNT_FOR_CHG_LEVEL_1){
-    setADPControlPin(true);
-  }else if(Cyclecount < CYCLECOUNT_FOR_CHG_LEVEL_2) {
     setADPControlPin(false);
-  }else{
+  }else if(Cyclecount < CYCLECOUNT_FOR_CHG_LEVEL_2) {
     setADPControlPin(true);
+  }else{
+    setADPControlPin(false);
   }
   
 }

@@ -12,6 +12,7 @@ enum Device_Enable
   DeviceOn
 };
 
+
 enum For_G_uc_SysModeStatusCode  //unsigned char
 {
   UnKnowStatus,
@@ -93,8 +94,8 @@ extern unsigned int G_Activate_Action_Status_Other1;
 /* Module Status Control Bits */
 /* For G_Activate_Action_Status_Other1 ; unsigned int */
 //Low byte
-#define Low_Power_Mode   (0x0001)    //
-//#define _No_Used_   (0x0002)    //
+#define Low_Power_Mode    (0x0001)    //
+#define Blink_TWO_LED     (0x0002)    //
 //#define _No_Used_   (0x0004)    //
 //#define _No_Used_   (0x0008)    //
 //#define _No_Used_   (0x0010)    //
@@ -114,3 +115,10 @@ extern unsigned int G_Activate_Action_Status_Other1;
 
 
 
+extern unsigned char FirstInitial_Func();
+extern unsigned char Startup_Func();
+extern unsigned char Normal_Func();
+extern unsigned char Failure_Func();
+extern unsigned char Shutdown_Func();
+extern unsigned char Shipping_Func();
+extern unsigned char Calibration_Func();

@@ -55,20 +55,21 @@ __interrupt void Timer_A(void)
   {
    case  2:                                 // CCR1 is used
      if(getSW1Status()){
-       P2OUT ^= LED3;
      }
-     //P2OUT ^= LED3;
      break;
    case  4:                                 // CCR2 Not used
-     //P2OUT ^= LED4;
      break;
    case 10:                                 // overflow
-   //P2OUT ^= LED4;
+     if(G_Activate_Action_Status & CAPACITY_DISLALY){
+      Display5LEDsCapacityByScanning();
+    }
     //=========================================================================
     // each Half second into once 
     if(Half_Timer_Counter >= _half_1_second_count_){
       Half_Timer_Counter = 0;
-      BlinkLEDs();
+      if(G_Activate_Action_Status_Other1 & Blink_TWO_LED){
+        Blink2SeparateLEDs();
+      }
       
       if(G_Activate_Action_Status & ACCUMULATING_Q_ENABLE){
         AccumulatingQ();
@@ -114,7 +115,7 @@ __interrupt void Timer_A(void)
       if(Display_Capacity_Timer_Counter >= (DisplayCAPACITY_TIME<<1)){
         //off capacity display
         G_Activate_Action_Status &= ~CAPACITY_DISLALY;
-        DisplayCapacity(LED_SET_ALL, false);
+        DisplayCapacity(ALL_LED_PORT, false);
       }
     }//if(Half_Timer_Counter >= _half_1_second_count_){
     Half_Timer_Counter++;

@@ -20,7 +20,7 @@
 |  Batt Capacity (50%) |    ON    |    ON    |    OFF   |   OFF    |
 |  Batt Capacity (25%) |    ON    |    OFF   |    OFF   |   OFF    |
 \******************************************************************/
-
+#if _5LEDs_TYPE_ == 0
 unsigned char LED_OUT_BIT;
 void InitLEDPort()
 {
@@ -79,3 +79,4 @@ void BlinkLEDs()
   P2OUT ^= LED_OUT_BIT;
 }
 
+#endif

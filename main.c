@@ -4,13 +4,7 @@
 
 #include "LEV_PrjDefine.h"
 
-extern unsigned char FirstInitial_Func();
-extern unsigned char Startup_Func();
-extern unsigned char Normal_Func();
-extern unsigned char Failure_Func();
-extern unsigned char Shutdown_Func();
-extern unsigned char Shipping_Func();
-extern unsigned char Calibration_Func();
+
 
 unsigned char G_uc_SysModeStatusCode;
 
@@ -47,7 +41,10 @@ void main( void )
 //  __delay_cycles(100);  // 106us ==> 1MHz clock
 //  __delay_cycles(10);  // 165s ==> 1MHz clock
   
-  
+#if _Erase_InformationMemory_At_Flash_segment_C_ > 0
+  extern void EraseMemory_Func( );  
+  EraseMemory_Func( );
+#endif  
   
   FirstInitial_Func(); 
   
@@ -79,7 +76,9 @@ void main( void )
       break;
       
     case CalibrationMode:
+      G_Activate_Action_Status_Other1 |= Blink_TWO_LED;
       G_uc_SysModeStatusCode = Calibration_Func();
+      G_Activate_Action_Status_Other1 &= ~Blink_TWO_LED;
       break;
 //    case ShippingMode:
 //      G_uc_SysModeStatusCode = Shipping_Func();

@@ -29,8 +29,10 @@
         DB _NO_DEFINE_                                  ;34 	// 1 bytes
         DB _WAKE_UP_TIME_FROM_SUSPEND_MODE_             ;35 	// 1 bytes
         DW _FIRST_TO_SUSPEND_MODE_IN_RELEASE_TIME_      ;36 	// 2 bytes
+
         DW _SOC_CELL_OV_VOLTAGE_                        ;38 	// 2 bytes
         DW _SOC_CELL_UV_VOLTAGE_                        ;40 	// 2 bytes
+        
         DL _ADC_CYCLECOUNT_THRESHOLD_                   ;42 	// 4 bytes
         DW _CYCLECOUNT_FOR_CHG_LEVEL_1_                 ;46 	// 2 bytes
         DW _CYCLECOUNT_FOR_CHG_LEVEL_2_                 ;48 	// 2 bytes
@@ -39,7 +41,7 @@
         DW _ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_     //52; 2bytes; 650mA ~ 1950mA
         DW _ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_     //54; 2bytes; 1950mA ~ 3900mA
 
-#if 1           
+#if _BURN_IN_CALIBRATION_SEGMENT_Flash_segment_C_ > 0
 
         ; TEST  Information
         ORG     Flash_segment_C

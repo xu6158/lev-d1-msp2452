@@ -1809,6 +1809,9 @@
     <name>$PROJ_DIR$\AdcReader.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\EreaseInformationMemory.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\IIC_Slave.c</name>
   </file>
   <file>
@@ -1816,6 +1819,9 @@
   </file>
   <file>
     <name>$PROJ_DIR$\LEDDisplay.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\LEDDisplay_5LEDScan.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\LEV_CommonDefine.h</name>

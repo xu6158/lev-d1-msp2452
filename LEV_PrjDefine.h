@@ -8,7 +8,22 @@
 
 //extern unsigned char gTempChar64[64];
 
+#ifdef _5LEDs_TYPE_
 
+#define DisplayCAPACITY_TIME              2 //sec
+#define LED_PORT1       BIT3    //P2.3
+#define LED_PORT2       BIT4    //P2.4
+#define LED_PORT3       BIT5    //P2.5
+#define LED_PORT4       BIT6    //P2.6
+
+#define ALL_LED_PORT  (LED_PORT1 + LED_PORT2 + LED_PORT3 + LED_PORT4)
+
+void InitLEDPort();
+void DisplayCapacity(unsigned char capacity, char isOn);
+void Display5LEDsCapacityByScanning();
+void Blink2SeparateLEDs();
+
+#else
 /***********************************************************\
 | LEDDisplay.c                                              |
 | #1 P2.3 --> 0x08                                          |
@@ -49,7 +64,7 @@ void BlinkLEDs();
 //#define OT_UT_BlinkLED          LED4
 #define OT_UT_BlinkLED          LED3
 
-
+#endif
 /************************************************************\
 | Timer.c                                                   |
 | Button Port: P1.4                                          |

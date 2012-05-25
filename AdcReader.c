@@ -76,6 +76,7 @@ unsigned int GetADCValue(unsigned char ADC_Channel)
   }
   ADCresults_Avg = ADCresults_Avg >> 2;
   
+  //修改adc值加校正offset值 (理論值 = 實際值 - Offset)
   switch(ADC_Channel){
     case IDSG_ADC:
       ADCresults_Avg -= DSG_OP_ADC_OFFSET;

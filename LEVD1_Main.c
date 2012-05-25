@@ -6,7 +6,9 @@
 #define _2nd_Priority_Values  5
 #define _3rd_Priority_Values  3
 
-#define PROTECTION_DELAY_LOOP_COUNT   3
+#define OC_PROTECTION_DELAY_LOOP_COUNT  5
+#define OV_PROTECTION_DELAY_LOOP_COUNT  5
+#define UV_PROTECTION_DELAY_LOOP_COUNT  200 //about 2 sec = 200
 unsigned int G_Module_Status;
 unsigned char G_uc_SystemFailureCode;
 unsigned int G_Activate_Action_Status;
@@ -40,12 +42,11 @@ unsigned char FirstInitial_Func(){
   // Initialize LEDs
   InitLEDPort(); 
   for(i=0; i<5; i++){
-    P2OUT ^= LED_SET_ALL;
+    P2OUT ^= LED_PORT2;
     __delay_cycles(100000);  // 100ms ==> 1MHz clock
   }
-  P2OUT &=~LED_SET_ALL;
+  P2OUT &=~ALL_LED_PORT;
   __delay_cycles(100000);  // 100ms ==> 1MHz clock
-//  P2OUT ^= LED4;  
 //  __delay_cycles(100000);  // 100.8 ms ==> 1MHz clock
 //  __delay_cycles(10000);  // 10.1ms ==> 1MHz clock
 //  __delay_cycles(1000);  // 1ms ==> 1MHz clock
@@ -77,10 +78,10 @@ unsigned char Startup_Func()
   // Initialize LEDs
   InitLEDPort(); 
   for(i=0; i<5; i++){
-    P2OUT ^= LED_SET_ALL;
+    P2OUT ^= LED_PORT2;
     __delay_cycles(100000);  // 100ms ==> 1MHz clock
   }
-  P2OUT &=~LED_SET_ALL;
+  P2OUT &=~ALL_LED_PORT;
   
 
   __delay_cycles(100000);  // 100ms ==> 1MHz clock
@@ -164,9 +165,9 @@ unsigned char Normal_Func(){
     
     if( iTemp1 >= ADC_COC_PROTECTION && ((G_Module_Status & Module_C_OC) == 0 )){
       G_DSG_CHG_OC_Delay_Count++;
-      if((G_DSG_CHG_OC_Delay_Count & 0x0f) >= PROTECTION_DELAY_LOOP_COUNT){
+      if((G_DSG_CHG_OC_Delay_Count & 0x0f) >= OC_PROTECTION_DELAY_LOOP_COUNT){
         G_Module_Status |= Module_C_OC;
-        setBlinkLED(OC_BlinkLED, true);
+        //setBlinkLED(OC_BlinkLED, true);
       }
     }else{
       G_DSG_CHG_OC_Delay_Count &= ~(0x0f);
@@ -194,17 +195,17 @@ unsigned char Normal_Func(){
         (G_Module_Status & Module_2nd_OV) == 0)
     {
       G_2ND_OV_UV_Delay_Count++;
-      if(G_2ND_OV_UV_Delay_Count >= PROTECTION_DELAY_LOOP_COUNT){
+      if(G_2ND_OV_UV_Delay_Count >= OV_PROTECTION_DELAY_LOOP_COUNT){
         G_Module_Status |= Module_2nd_OV;
-        setBlinkLED(OV_UV_BlinkLED, true);
+        //setBlinkLED(OV_UV_BlinkLED, true);
       }
     }else if( iTemp1 < ADC_2ND_BATTERY_UV_PROTECTION && 
         (G_Module_Status & Module_2nd_UV) == 0)
     {
       G_2ND_OV_UV_Delay_Count++;
-      if(G_2ND_OV_UV_Delay_Count >= PROTECTION_DELAY_LOOP_COUNT){
+      if(G_2ND_OV_UV_Delay_Count >= UV_PROTECTION_DELAY_LOOP_COUNT){
         G_Module_Status |= Module_2nd_UV;
-        setBlinkLED(OV_UV_BlinkLED, true);
+        //setBlinkLED(OV_UV_BlinkLED, true);
       }
     }else{
       G_2ND_OV_UV_Delay_Count = 0;
@@ -241,10 +242,10 @@ unsigned char Normal_Func(){
        G_Module_Status & Module_UT  ||
        G_Module_Status & Module_OV  ||
        G_Module_Status & Module_UV){
-      setBlinkLED(OT_UT_BlinkLED, true);
+      //setBlinkLED(OT_UT_BlinkLED, true);
 //      setBlinkLED(OV_UV_BlinkLED, true);
     }else{
-      setBlinkLED(OT_UT_BlinkLED, false);
+      //setBlinkLED(OT_UT_BlinkLED, false);
 //      setBlinkLED(OV_UV_BlinkLED, false);
     }
     
@@ -322,7 +323,7 @@ unsigned char Normal_Func(){
         G_Module_Status &= ~Module_C_OC;
         setMosFET(MOSFET_CHG, DeviceOn);
         setMosFET(MOSFET_DSG, DeviceOn);
-        setBlinkLED(OC_BlinkLED, false);
+        //setBlinkLED(OC_BlinkLED, false);
       }
     }else if(G_Module_Status & (Module_DSG_OT+ Module_CHG_OT + Module_UT)){
       
@@ -365,15 +366,18 @@ unsigned char Normal_Func(){
           setMosFET(MOSFET_CHG, DeviceOn);
         }
     }else if(G_Module_Status & Module_2nd_UV){
-        setMosFET(MOSFET_DSG, DeviceOff);
+        
         /////////////////////////////////////////////////
         //remove by hsinmo 2012/05/23
         //relese 2nd_UV By Release Voltage
+        /////////////////////////////////////////////////
+        //setMosFET(MOSFET_DSG, DeviceOff);
         //iTemp1 = GetADCValue(Vbat_ADC);
         //if( iTemp1 > ADC_2ND_BATTERY_UV_RELEASE){
         //  G_Module_Status &= ~Module_2nd_UV;
         //  setMosFET(MOSFET_DSG, DeviceOn);
         //}
+      
         /////////////////////////////////////////////////
         //add by hsinmo 2012/05/23
         //relese 2nd_UV By Charger staus
@@ -381,6 +385,9 @@ unsigned char Normal_Func(){
           // CHG status
           G_Module_Status &= ~Module_2nd_UV;
           setMosFET(MOSFET_DSG, DeviceOn);
+        }else{
+          // DSG status
+          setMosFET(MOSFET_DSG, DeviceOff);
         }
     }else{  //else #1 start
       
@@ -465,6 +472,7 @@ unsigned char Normal_Func(){
       DisplayCapacity(getRealCapacityByCell(iTemp2,iTemp1), true);
     }
     
+#if _SUSPEND_ENABLE_ > 0
     //into suspend mode
     if(G_Activate_Action_Status & SUSPEND_COUNTING_FINISH){
       //Coulomb Counter Stop
@@ -473,7 +481,8 @@ unsigned char Normal_Func(){
       //Coulomb Counter Start
       G_Activate_Action_Status |= ACCUMULATING_Q_ENABLE;
     }
-  
+#endif
+    
     __delay_cycles(6000);  // 6ms ==> 1MHz clock
     if(G_uc_SysModeStatusCode != NormalMode){
       return G_uc_SysModeStatusCode;
@@ -489,9 +498,9 @@ unsigned char Failure_Func(){
 
   setMosFET(MOSFET_CHG, DeviceOff);
   setMosFET(MOSFET_DSG, DeviceOff);
-  setBlinkLED(LED_SET_ALL, false);
+  //setBlinkLED(LED_SET_ALL, false);
   __delay_cycles(1000);  // 1ms ==> 1MHz clock
-  setBlinkLED(SystemFailBlinkLED, true);
+  //setBlinkLED(SystemFailBlinkLED, true);
   
   G_Activate_Action_Status =0;
   G_Activate_Action_Status_Other1 = 0;
@@ -513,7 +522,7 @@ unsigned char Shutdown_Func(){
 
   setMosFET(MOSFET_CHG, DeviceOff);
   setMosFET(MOSFET_DSG, DeviceOff);
-  setBlinkLED(LED_SET_ALL, false);
+  //setBlinkLED(LED_SET_ALL, false);
   __delay_cycles(1000);  // 1ms ==> 1MHz clock
   //BlinkLED(SystemFailBlinkLED, true);
   
@@ -535,8 +544,8 @@ unsigned char Calibration_Func(){
 
   setMosFET(MOSFET_CHG, DeviceOn);
   setMosFET(MOSFET_DSG, DeviceOn);
-  setBlinkLED(LED_SET_ALL, false);
-  DisplayLED(LED_SET_ALL, DeviceOn);
+  //setBlinkLED(LED_SET_ALL, false);
+  //DisplayLED(LED_SET_ALL, DeviceOn);
   G_Activate_Action_Status = 0;
   G_Activate_Action_Status_Other1 = 0;
   //G_CHG_CV_MODE_Cycle_Count = 0;
@@ -550,16 +559,17 @@ unsigned char Calibration_Func(){
       break;
     }
     if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
-      G_Activate_Action_Status = 0;
-      G_Activate_Action_Status_Other1 = 0;
-      setMosFET(MOSFET_CHG, DeviceOff);
-      setMosFET(MOSFET_DSG, DeviceOff);
-      return StartUp;
+
+      break;
     }
     __delay_cycles(10000);  // 10ms ==> 1MHz clock
     StartAdcConversion();
 
   };
+  G_Activate_Action_Status = 0;
+  G_Activate_Action_Status_Other1 = 0;
+  setMosFET(MOSFET_CHG, DeviceOff);
+  setMosFET(MOSFET_DSG, DeviceOff);
   return StartUp;
 }
 
@@ -574,10 +584,15 @@ unsigned char Suspend_Func(){
     setMosFET(MOSFET_CHG, DeviceOff);
     setMosFET(MOSFET_DSG, DeviceOff);
     ///////////////////////////////////////////////////////
-    //解決 bUTTON_LONG_PRESS 進入 SuspendMode 時，
+    //解決 BUTTON_LONG_PRESS 進入 SuspendMode 時，
     // BUTTON_CLICK 無作用.
     G_Activate_Action_Status &= ~BUTTON_LONG_PRESS_FLAG;
     
+    ///////////////////////////////////////////////////////
+    //解決 進入 SuspendMode 時，無法跳到 CalibrationMode
+    if(G_uc_SysModeStatusCode != SuspendMode){
+      return CalibrationMode;
+    }
     ///////////////////////////////////////////////////////
     // into Low Power Mode
     G_Activate_Action_Status |= ENABLE_SUSPEND_WAKE_UP_COUNTER;
