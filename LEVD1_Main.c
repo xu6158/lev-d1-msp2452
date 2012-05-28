@@ -65,7 +65,7 @@ unsigned char Startup_Func()
   InitLEDPort();
   InitBlinkLEDs();
  
-
+  
   __delay_cycles(100000);  // 100ms ==> 1MHz clock
   
   Setup_USI_Slave();

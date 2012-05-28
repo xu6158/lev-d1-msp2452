@@ -150,8 +150,8 @@
 // _ADC_CYCLECOUNT_THRESHOLD_ = 9360 mAh * _CHG_mA_to_ADC_factor_ (0.09280f) / time based(0.0001388f)
 //#define _ADC_CYCLECOUNT_THRESHOLD_               11048508        // 2600*4p*0.9 = 9360 mAh; unit: maH.; 4byte; Cycle Count Threshold for total DSG capacity
 #define _ADC_CYCLECOUNT_THRESHOLD_                  6257982        // 2600*4p*0.9 = 9360 mAh; unit: maH.; 4byte; Cycle Count Threshold for total CHG capacity
-#define _CYCLECOUNT_FOR_CHG_LEVEL_1_                500         // 500 times; unit: times; 2byte; Cycle Count times for charger to set CHG voltage
-#define _CYCLECOUNT_FOR_CHG_LEVEL_2_                1000        // 1000 times; unit: times; 2byte; Cycle Count times for charger to set CHG voltage
+#define _CYCLECOUNT_FOR_CHG_LEVEL_1_                150         // 500 times; unit: times; 2byte; Cycle Count times for charger to set CHG voltage
+#define _CYCLECOUNT_FOR_CHG_LEVEL_2_                500        // 1000 times; unit: times; 2byte; Cycle Count times for charger to set CHG voltage
 //=====================================================================================================================
 // OCV TABLE Line Current Range, 4 ocv lines
 // Battery for a cell capacity ==> 2600 mAH * 4p

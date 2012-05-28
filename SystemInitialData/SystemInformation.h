@@ -3,7 +3,7 @@
 /*! \brief If  5 LEDs and Thick TYPE is enabled. 
     «p«¬ 48V/36V 5LEDs  should be '1'.
     Á¡«¬ 36V  4LEDs     should be '0'.                      */
-#define _5LEDs_Thick_TYPE_                              (  0 )
+#define _5LEDs_Thick_TYPE_                              (  1 )
 /*! \brief If  5 LEDs TYPE and LEV 48V should be enabled , if 36V should be set '0'*/
 #define _LEV_48_                                        (  1 )
 /*! \brief If  Suspend Mode in Main Function should be enabled */

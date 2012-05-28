@@ -214,7 +214,7 @@ void checkRXAndSetTX()
       //SLV_RxTxBuffer[1] : receive Data length==> 2 + n of write data
       //SLV_RxTxBuffer[2] : SegmentSelection, 0 =Flash_segment_B(0x1080,CONFIG_SEGMENT), 1 =Flash_segment_C(0x1040,CALIBRATION_SEGMENT)
       //SLV_RxTxBuffer[3] : data offset address
-      //SLV_RxTxBuffer[4]...[n] : write data (length = SLV_RxTxBuffer[1] - 2)
+      //SLV_RxTxBuffer[4]...[n] : write data (length = SLV_RxTxBuffer[1] - 2)(int: hi byte, lo byte)
     case 0xe0:
       if(RxCount != (SLV_RxTxBuffer[1]+2)){break;}
       //void WriteDataToFlash(unsigned char Offset_Address, unsigned char *value, unsigned char dataLength, unsigned char SegmentSelection);
