@@ -83,3 +83,11 @@ Ver 7
 Ver 8
 2012/05/24	修改Calibration_Func()之Blink flag
 2012/05/24	修改_CYCLECOUNT 參數150及500 
+
+Ver 9
+For 5Led Version
+2012/05/28	Add DisplayLEDsByScanningOnOff(), LightOffSequenceByScanning(), LightOnSequenceByScanning().for Shutdown Showing.
+2012/05/28	at suspend mode, button click will leave suspend mode and show capacity, button long press will shutdown.
+
+
+

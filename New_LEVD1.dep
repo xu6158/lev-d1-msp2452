@@ -6,135 +6,205 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\Debug\Obj\AdcReader.r43</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
+      <file>$PROJ_DIR$\SystemInitialData\SystemInformation_Thick_36V.h</file>
+      <file>$PROJ_DIR$\SystemInitialData\SystemConfigInitial.s43</file>
+      <file>$PROJ_DIR$\SystemInitialData\SystemInformation_Thick_48V.h</file>
+      <file>$PROJ_DIR$\AdcReader.c</file>
+      <file>$PROJ_DIR$\SystemInitialData\InformationFlashAccess.c</file>
+      <file>$PROJ_DIR$\SOC\CoulombCounter.c</file>
+      <file>$PROJ_DIR$\SystemInitialData\SystemInformation_ThinType36V.h</file>
+      <file>$PROJ_DIR$\SOC\SOC_OCV_Table.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\LEVD1_Main.r43</file>
+      <file>$PROJ_DIR$\SystemInitialData\CalculatingSettingProtectionToADC.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\SW_Button.r43</file>
+      <file>$PROJ_DIR$\SystemInitialData\SystemInformation.h</file>
+      <file>$PROJ_DIR$\SOC\SOC_Calculation.c</file>
+      <file>$TOOLKIT_DIR$\inc\msp430g2452.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\CalculatingSettingProtectionToADC.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\InformationFlashAccess.r43</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\IIC_Slave.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\LEDDisplay.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\SW_Button.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\AdcReader.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\InputSignalGetting.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\CalculatingSettingProtectionToADC.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\TimerA.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+      <file>$PROJ_DIR$\IIC_CommonDefine.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\SOC_Calculation.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\LEVD1_Main.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\LEDDisplay_5LEDScan.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\msp430g2452.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\SOC_Calculation.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\TimerA.r43</file>
-      <file>$PROJ_DIR$\IIC_CommonDefine.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\CalculatingSettingProtectionToADC.r43</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\SW_Button.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\InformationFlashAccess.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\InputSignalGetting.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\EreaseInformationMemory.r43</file>
-      <file>$PROJ_DIR$\AdcReader.c</file>
-      <file>$PROJ_DIR$\EreaseInformationMemory.c</file>
-      <file>$PROJ_DIR$\IIC_Slave.c</file>
-      <file>$PROJ_DIR$\InputSignalGetting.c</file>
-      <file>$PROJ_DIR$\LEDDisplay.c</file>
-      <file>$PROJ_DIR$\LEDDisplay_5LEDScan.c</file>
-      <file>$PROJ_DIR$\LEV_CommonDefine.h</file>
-      <file>$PROJ_DIR$\LEV_PrjDefine.h</file>
-      <file>$PROJ_DIR$\LEVD1_Main.c</file>
-      <file>$PROJ_DIR$\main.c</file>
-      <file>$PROJ_DIR$\MosFETControl.c</file>
-      <file>$PROJ_DIR$\SW_Button.c</file>
-      <file>$PROJ_DIR$\TimerA.c</file>
-      <file>$PROJ_DIR$\Debug\Exe\New_LEVD1.d43</file>
-      <file>$PROJ_DIR$\Debug\Obj\MosFETControl.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\InformationFlashAccess.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\InputSignalGetting.r43</file>
-      <file>$TOOLKIT_DIR$\config\lnk430G2452.xcl</file>
-      <file>$PROJ_DIR$\Debug\Obj\MosFETControl.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\TimerA.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\New_LEVD1.pbd</file>
-      <file>$PROJ_DIR$\Debug\Obj\CalculatingSettingProtectionToADC.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\LEDDisplay.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\IIC_Slave.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\SOC_Calculation.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\AdcReader.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$PROJ_DIR$\SystemInitialData\SystemInformation_ThinType36V.h</file>
-      <file>$PROJ_DIR$\SystemInitialData\SystemInformation_Thick_48V.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\SystemInitialData\SystemInformation_Thick_36V.h</file>
       <file>$PROJ_DIR$\Debug\Obj\IIC_Slave.pbi</file>
-      <file>$PROJ_DIR$\SOC\SOC_Calculation.c</file>
-      <file>$PROJ_DIR$\SystemInitialData\InformationFlashAccess.c</file>
-      <file>$PROJ_DIR$\SystemInitialData\CalculatingSettingProtectionToADC.c</file>
-      <file>$PROJ_DIR$\SOC\SOC_OCV_Table.h</file>
-      <file>$PROJ_DIR$\SOC\CoulombCounter.c</file>
-      <file>$PROJ_DIR$\SystemInitialData\SystemConfigInitial.s43</file>
-      <file>$PROJ_DIR$\SystemInitialData\SystemInformation.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\CoulombCounter.r43</file>
+      <file>$PROJ_DIR$\InputSignalGetting.c</file>
       <file>$PROJ_DIR$\Debug\Obj\LEDDisplay_5LEDScan.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\New_LEVD1.pbd</file>
+      <file>$PROJ_DIR$\Debug\Obj\SOC_Calculation.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\CoulombCounter.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\LEVD1_Main.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\SW_Button.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\SystemConfigInitial.r43</file>
+      <file>$PROJ_DIR$\TimerA.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\InputSignalGetting.r43</file>
+      <file>$PROJ_DIR$\SW_Button.c</file>
       <file>$PROJ_DIR$\Debug\Obj\EreaseInformationMemory.pbi</file>
+      <file>$PROJ_DIR$\LEVD1_Main.c</file>
+      <file>$PROJ_DIR$\LEV_PrjDefine.h</file>
       <file>$PROJ_DIR$\Debug\Obj\LEDDisplay.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\MosFETControl.r43</file>
+      <file>$PROJ_DIR$\Debug\Exe\New_LEVD1.d43</file>
+      <file>$PROJ_DIR$\Debug\Obj\EreaseInformationMemory.r43</file>
+      <file>$PROJ_DIR$\LEDDisplay.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\TimerA.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\InformationFlashAccess.pbi</file>
+      <file>$PROJ_DIR$\MosFETControl.c</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\LEDDisplay_5LEDScan.c</file>
+      <file>$PROJ_DIR$\EreaseInformationMemory.c</file>
+      <file>$PROJ_DIR$\LEV_CommonDefine.h</file>
+      <file>$PROJ_DIR$\IIC_Slave.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\MosFETControl.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\AdcReader.r43</file>
+      <file>$TOOLKIT_DIR$\config\lnk430G2452.xcl</file>
     </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 47</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\SystemInitialData\SystemConfigInitial.s43</name>
+      <outputs>
+        <tool>
+          <name>A430</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>A430</name>
+          <file> 11 2</file>
+        </tool>
+      </inputs>
+    </file>
     <file>
       <name>$PROJ_DIR$\AdcReader.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 39</file>
+          <file> 21</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 0</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\EreaseInformationMemory.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
           <file> 60</file>
         </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 13</file>
-        </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\IIC_Slave.c</name>
+      <name>$PROJ_DIR$\SystemInitialData\InformationFlashAccess.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 46</file>
+          <file> 51</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 37</file>
+          <file> 15</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43 7</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43 7</file>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\SOC\CoulombCounter.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\SystemInitialData\CalculatingSettingProtectionToADC.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\SOC\SOC_Calculation.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 36</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 7 44 13 20 16 56 11 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 7 44 13 20 16 56 11 2</file>
         </tool>
       </inputs>
     </file>
@@ -143,99 +213,7 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 30</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\LEDDisplay.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 61</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\LEDDisplay_5LEDScan.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 3</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 55</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\LEVD1_Main.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 2</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 57</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\main.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 44</file>
+          <file> 22</file>
         </tool>
         <tool>
           <name>ICC430</name>
@@ -245,89 +223,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\MosFETControl.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 32</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 28</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\SW_Button.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 10</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 58</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\TimerA.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 33</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 6</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-        <tool>
-          <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\New_LEVD1.d43</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 31 0 8 54 13 37 11 30 61 55 57 28 5 58 59 6 40 1</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
       </inputs>
     </file>
@@ -336,71 +236,62 @@
       <inputs>
         <tool>
           <name>BILINK</name>
-          <file> 39 35 56 60 46 29 12 36 3 2 32 38 10 33 44</file>
+          <file> 21 23 37 42 30 51 22 18 29 28 58 27 19 50 31</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 27</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\SOC\SOC_Calculation.c</name>
+      <name>$PROJ_DIR$\TimerA.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 38</file>
+          <file> 50</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 5</file>
+          <file> 24</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 50 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 50 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\SystemInitialData\InformationFlashAccess.c</name>
+      <name>$PROJ_DIR$\SW_Button.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 29</file>
+          <file> 19</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 11</file>
+          <file> 10</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\SystemInitialData\CalculatingSettingProtectionToADC.c</name>
+      <name>$PROJ_DIR$\LEVD1_Main.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 35</file>
+          <file> 28</file>
         </tool>
         <tool>
           <name>ICC430</name>
@@ -410,49 +301,158 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\SOC\CoulombCounter.c</name>
+      <name>$PROJ_DIR$\Debug\Exe\New_LEVD1.d43</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 61 60 14 32 48 17 15 40 45 34 8 46 36 10 38 24 25 59</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\LEDDisplay.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 56</file>
+          <file> 18</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 54</file>
+          <file> 45</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 21 4 41 9 20 53 43</file>
+          <file> 44 13 20 16 56 11 2</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\SystemInitialData\SystemConfigInitial.s43</name>
+      <name>$PROJ_DIR$\MosFETControl.c</name>
       <outputs>
         <tool>
-          <name>A430</name>
-          <file> 59</file>
+          <name>BICOMP</name>
+          <file> 58</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 46</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>A430</name>
-          <file> 53 43</file>
+          <name>BICOMP</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\LEDDisplay_5LEDScan.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 34</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\EreaseInformationMemory.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 48</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 44 13 20 16 56 11 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\IIC_Slave.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 30</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 17</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 13 20 16 56 11 2 26</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 44 13 20 16 56 11 2 26</file>
         </tool>
       </inputs>
     </file>

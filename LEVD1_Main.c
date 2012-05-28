@@ -451,6 +451,7 @@ unsigned char Normal_Func(){
     if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
       G_Activate_Action_Status = 0;
       G_Activate_Action_Status_Other1 = 0;
+      G_Activate_Action_Status_Other1 |= LightOff_Seq_LED;
       return ShutdownMode;
     }
     if(G_Activate_Action_Status & BUTTON_CLICK_FLAG){
@@ -520,7 +521,7 @@ unsigned char Shutdown_Func(){
   //BlinkLED(SystemFailBlinkLED, true);
   
   G_Activate_Action_Status = 0;
-  G_Activate_Action_Status_Other1 = 0;
+  //G_Activate_Action_Status_Other1 = 0;
   while(1){
     if(G_uc_SysModeStatusCode != ShutdownMode){
       return G_uc_SysModeStatusCode;
@@ -606,8 +607,9 @@ unsigned char Suspend_Func(){
     //InitAdcReader();
     __delay_cycles(100000);  // 100ms ==> 1MHz clock
     __delay_cycles(100000);  // 100ms ==> 1MHz clock
-    if(G_Activate_Action_Status & BUTTON_CLICK_FLAG){
-      G_Activate_Action_Status &= ~BUTTON_CLICK_FLAG;
+    if(G_Activate_Action_Status & (BUTTON_CLICK_FLAG + BUTTON_LONG_PRESS_FLAG)){
+      //BUTTON_CLICK 離開susspend mode 並顯示 capacity
+      //G_Activate_Action_Status &= ~BUTTON_CLICK_FLAG;
       break;
     }
     
@@ -626,7 +628,9 @@ unsigned char Suspend_Func(){
 //      G_Activate_Action_Status &= ~ENABLE_SUSPEND_COUNTER;
 //      break;
   }
-  G_Activate_Action_Status = 0;
+  
+  
+  G_Activate_Action_Status = (G_Activate_Action_Status & (BUTTON_CLICK_FLAG + BUTTON_LONG_PRESS_FLAG)); //僅留button click 狀態
   G_Activate_Action_Status_Other1 = 0;
   
   return NormalMode;

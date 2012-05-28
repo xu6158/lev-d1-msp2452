@@ -65,6 +65,7 @@ enum For_Show_LED_Code  //unsigned char
 static unsigned char Blink_LED_BIT;
 static unsigned char ScanFlag;
 static unsigned char Show_LED_Codes;
+static unsigned char LED_Light_Counter, LED_LightOff_Code, LED_LightOn_Code;
 void InitLEDPort()
 {
   P2SEL &= ~(ALL_LED_PORT);
@@ -73,6 +74,9 @@ void InitLEDPort()
   ScanFlag = 0;
   Show_LED_Codes = 0;
   Blink_LED_BIT = 0;
+  //LED_LightOff_Code = SHOW_4_LEDS;
+  //LED_LightOn_Code = SHOW_1_LED_RED;
+  LED_Light_Counter = 0;
 }
 
 void InitBlinkLEDs(){
@@ -123,32 +127,74 @@ void DisplayCapacity(unsigned char capacity, char isOn)
 }
 
 void Display5LEDsCapacityByScanning(){
-  RESET_ALL_LED_PORT;
-    switch(Show_LED_Codes){
+  DisplayLEDsByScanningOnOff(Show_LED_Codes, (ScanFlag & BIT1));
+  ScanFlag ^= BIT1;
+  
+}
+
+void LightOffSequenceByScanning(){
+  if(G_Activate_Action_Status_Other1 & LightOff_Seq_LED){
+    if(LED_LightOff_Code > No_LED_SHOW){
+      DisplayLEDsByScanningOnOff(LED_LightOff_Code, (ScanFlag & BIT2));
+      LED_Light_Counter++;
+      if(LED_Light_Counter > 50){
+        LED_Light_Counter = 0;
+        LED_LightOff_Code--;
+      }
+      ScanFlag ^= BIT2;
+    }else{
+      RESET_ALL_LED_PORT;
+      G_Activate_Action_Status_Other1 &= ~LightOff_Seq_LED;
+    }
+  }else{
+    LED_LightOff_Code = SHOW_4_LEDS;
+  }
+}
+void LightOnSequenceByScanning(){
+  if(G_Activate_Action_Status_Other1 & LightOn_Seq_LED){
+    if(LED_LightOn_Code <= SHOW_4_LEDS){
+      DisplayLEDsByScanningOnOff(LED_LightOn_Code, (ScanFlag & BIT3));
+      LED_Light_Counter++;
+      if(LED_Light_Counter > 50){
+        LED_Light_Counter = 0;
+        LED_LightOn_Code++;
+      }
+      ScanFlag ^= BIT3;
+    }else{
+      RESET_ALL_LED_PORT;
+      G_Activate_Action_Status_Other1 &= ~LightOn_Seq_LED;
+    }
+  }else{
+    LED_LightOn_Code = SHOW_1_LED_RED;
+  }
+}
+void DisplayLEDsByScanningOnOff(unsigned char led_code, unsigned char isOn){
+    RESET_ALL_LED_PORT;
+    switch(led_code){
       case SHOW_1_LED_RED:
-        if(ScanFlag & BIT1){
+        if(isOn){
           SHOW_LED5;
         }
         break;
       case SHOW_1_LED_GREEN:
-        if(ScanFlag & BIT1){
+        if(isOn){
           SHOW_LED4;
         }
         break;
       case SHOW_2_LEDS:
-        if(ScanFlag & BIT1){
+        if(isOn){
           SHOW_LED34;        
         }
         break;
       case SHOW_3_LEDS:
-        if(ScanFlag & BIT1){
+        if(isOn){
           SHOW_LED2;        
         }else{
           SHOW_LED34;        
         }
         break;
       case SHOW_4_LEDS:
-        if(ScanFlag & BIT1){
+        if(isOn){
           SHOW_LED34;        
         }else{
           SHOW_LED12;
@@ -157,8 +203,6 @@ void Display5LEDsCapacityByScanning(){
       default:
         break;
     }
-  ScanFlag ^= BIT1;
-  
 }
 
 

@@ -64,6 +64,8 @@ __interrupt void Timer_A(void)
      if(G_Activate_Action_Status & CAPACITY_DISLALY){
        Display5LEDsCapacityByScanning();
     }
+    LightOffSequenceByScanning();
+    LightOnSequenceByScanning();
 #endif       
     //=========================================================================
     // each Half second into once 

@@ -29,6 +29,9 @@ void DisplayCapacity(unsigned char capacity, char isOn);
 #if _5LEDs_Thick_TYPE_ > 0
 
 void Display5LEDsCapacityByScanning();
+void DisplayLEDsByScanningOnOff(unsigned char led_code, unsigned char isOn);
+void LightOffSequenceByScanning();
+void LightOnSequenceByScanning();
 void Blink2SeparateLEDs();
 
 #else

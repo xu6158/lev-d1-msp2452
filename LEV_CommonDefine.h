@@ -96,8 +96,8 @@ extern unsigned int G_Activate_Action_Status_Other1;
 //Low byte
 #define Low_Power_Mode    (0x0001)    //
 #define Blink_TWO_LED     (0x0002)    //
-//#define _No_Used_   (0x0004)    //
-//#define _No_Used_   (0x0008)    //
+#define LightOff_Seq_LED  (0x0004)    //
+#define LightOn_Seq_LED   (0x0008)    //
 //#define _No_Used_   (0x0010)    //
 //#define _No_Used_   (0x0020)    //
 //#define _No_Used_   (0x0040)    //
