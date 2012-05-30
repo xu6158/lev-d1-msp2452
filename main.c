@@ -31,8 +31,16 @@ void main( void )
   // LFXT1S_2 : ACLK VLO = ~12KHz
   BCSCTL3 |= LFXT1S_2;     
   
+  
+#if _INITIAL_2_Sec_Delay_ > 0
+  //delay 2 sec
+  for(int i = 0; i < 20;i++){
+    __delay_cycles(100000);  // 100ms ==> 1MHz clock
+  }
+#else
   //delay 20 mS
   __delay_cycles(200000);  // 200ms ==> 1MHz clock
+#endif
   
 //  P2OUT ^= LED4;  
 //  __delay_cycles(100000);  // 100.8 ms ==> 1MHz clock

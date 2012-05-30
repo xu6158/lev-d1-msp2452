@@ -31,6 +31,8 @@
 const int RealOCVTable[OCV_TABLE_POINTS][NUM_OF_OCV_LINE+1] =
 
 {
+////////////// RESIDUAL CAPACITY ///////////////////////////////
+//cell(mV),     OCV,    0.5C,     1C,    2C, ///////////////////
     { 4185,   10000,  	9994,  	9989,  	9971   },   //index = 00
     { 4087,    9103,  	9987,  	9989,  	9971   },   //index = 01
     { 3997,    8112,  	9496,  	9989,  	9971   },   //index = 02

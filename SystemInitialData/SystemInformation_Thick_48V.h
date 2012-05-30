@@ -22,7 +22,7 @@
 #define PRODUCT_NAME            "LEV"
 #define PRODUCT_NAME_LENGTH     3
 
-#define Serial_Number                       10
+#define Serial_Number                       4800
 #define Version		                          10
 #define MinorVersion		                    0
 
@@ -70,7 +70,7 @@
 #define _ADC_DETECT_CURRENT_OF_DSG_STATUS_     7      //40mA; unit: mA; 2bytes; if current > the define, in discharging status
 #define _ADC_DETECT_CURRENT_OF_CHG_STATUS_     9     //100mA; unit: mA; 2bytes; if current > the define, in charging status
 #define _ADC_DOC_PROTECTION_                   3276   // 20A; unit: 10mA; discharging current protection is positive
-#define _ADC_COC_PROTECTION_                   464    // 5A; unit: 10mA; charging current protection
+#define _ADC_COC_PROTECTION_                   371    // 4A; unit: 10mA; charging current protection
 
 //=====================================================================================================================
 // Battery Voltage circuit and setting
@@ -90,7 +90,7 @@
 ////////////////////////////////////////////////////////////////
 #define _ADC_2ND_BATTERY_OV_PROTECTION_       933 // 55V; unit: 10mV; 2bytes; 2nd level BATTERY OV PROTECTION
 #define _ADC_2ND_BATTERY_OV_RELEASE_          916 // 54V; unit: 10mV; 2bytes; 2nd level BATTERY OV RELEASE
-#define _ADC_2ND_BATTERY_UV_PROTECTION_       678 // 40V; unit: 10mV; 2bytes; 2nd level BATTERY UV PROTECTION
+#define _ADC_2ND_BATTERY_UV_PROTECTION_       619 // 36.5V; unit: 10mV; 2bytes; 2nd level BATTERY UV PROTECTION
 #define _ADC_2ND_BATTERY_UV_RELEASE_          712 // 42V; unit: 10mV; 2bytes; 2nd level BATTERY UV RELEASE 
 
 //=====================================================================================================================
@@ -119,7 +119,7 @@
 //////////////////////////////////////////////////////////////////
 //Thermistor_mV_To_ADC_Factor     0.4096f   // = 1/ADC_Step
 //=====================================================================================================================
-#define _ADC_DSG_OT_PROTECTION_            249    //unit: 607 mV; 70 Celcius; Over temperature protection for discharging(Low divided voltage)
+#define _ADC_DSG_OT_PROTECTION_            221    //unit: 539.37 mV; 75 Celcius; Over temperature protection for discharging(Low divided voltage)
 #define _ADC_DSG_OT_RELEASE_               280    //unit: 684 mV; 65 Celcius; Over temperature release for discharging(Low divided voltage)
 #define _ADC_CHG_OT_PROTECTION_            398    //unit: 971 mV; 50 Celcius; Over temperature protection for charging(Low divided voltage)
 #define _ADC_CHG_OT_RELEASE_               445    //unit: 1087 mV; 45 Celcius; Over temperature release for charging(Low divided voltage)

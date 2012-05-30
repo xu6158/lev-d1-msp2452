@@ -519,6 +519,22 @@ unsigned char Shutdown_Func(){
   //setBlinkLED(LED_SET_ALL, false);
   __delay_cycles(1000);  // 1ms ==> 1MHz clock
   //BlinkLED(SystemFailBlinkLED, true);
+
+#if _5LEDs_Thick_TYPE_ == 0
+  unsigned char i,j, bit;
+  bit = LED_PORT4;
+  P2OUT |= ALL_LED_PORT;
+  
+  for(i=0; i<4; i++){
+    for(j=0; j< 5;j++){
+      __delay_cycles(100000);  // 100ms ==> 1MHz clock
+    }
+    P2OUT &= ~ALL_LED_PORT;
+    P2OUT |= ALL_LED_PORT & (~bit);
+    bit = (bit >> 1)  | LED_PORT4;
+  }
+  P2OUT &=~ALL_LED_PORT;
+#endif
   
   G_Activate_Action_Status = 0;
   //G_Activate_Action_Status_Other1 = 0;
