@@ -93,5 +93,5 @@ Ver 10
 2012/05/30	Add into shutdown mode, thin type 36V will show LED Light Off Sequence.
 Ver 11
 2012/05/31	修改溫度保護參數到85/75 for All type
-
-
+Ver 12
+2012/05/31	修改_Erase_InformationMemory_At_Flash_segment_C_ , 拼寫錯誤  SystemInformation.h
