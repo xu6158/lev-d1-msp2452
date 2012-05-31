@@ -18,12 +18,12 @@
 
 #define MANUFACTURE_DATE_YEAR   2012
 #define MANUFACTURE_DATE_MONTH  5
-#define MANUFACTURE_DATE_DAY    8
+#define MANUFACTURE_DATE_DAY    31
 #define PRODUCT_NAME            "LEV"
 #define PRODUCT_NAME_LENGTH     3
 
-#define Serial_Number                       10
-#define Version		                          10
+#define Serial_Number                       3601
+#define Version		                          30
 #define MinorVersion		                    0
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,8 +120,8 @@
 //////////////////////////////////////////////////////////////////
 //Thermistor_mV_To_ADC_Factor     0.4096f   // = 1/ADC_Step
 //=====================================================================================================================
-#define _ADC_DSG_OT_PROTECTION_            249    //unit: 607 mV; 70 Celcius; Over temperature protection for discharging(Low divided voltage)
-#define _ADC_DSG_OT_RELEASE_               280    //unit: 684 mV; 65 Celcius; Over temperature release for discharging(Low divided voltage)
+#define _ADC_DSG_OT_PROTECTION_            174    //unit: 425.56 mV; 85 Celcius; Over temperature protection for discharging(Low divided voltage)
+#define _ADC_DSG_OT_RELEASE_               221    //unit: 539.37 mV; 75 Celcius; Over temperature release for discharging(Low divided voltage)
 #define _ADC_CHG_OT_PROTECTION_            398    //unit: 971 mV; 50 Celcius; Over temperature protection for charging(Low divided voltage)
 #define _ADC_CHG_OT_RELEASE_               445    //unit: 1087 mV; 45 Celcius; Over temperature release for charging(Low divided voltage)
 #define _ADC_UT_PROTECTION_                990    //unit: 2417 mV; 0 Celcius;  Under temperature protection(Low divided voltage)
@@ -141,7 +141,7 @@
 //=====================================================================================================================
 
 #define _SOC_CELL_OV_VOLTAGE_             4250 //mV, PIC/ hw 4250, 找較小值
-#define _SOC_CELL_UV_VOLTAGE_             2500 //mV, PIC/ hw 2500, 找較大值
+#define _SOC_CELL_UV_VOLTAGE_             2550 //mV, PIC/ hw 2500, 找較大值
 
 //=====================================================================================================================
 // SOC Cycle Count
