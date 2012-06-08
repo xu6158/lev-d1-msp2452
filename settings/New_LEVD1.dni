@@ -18,13 +18,13 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=-138331112
+Checksum=-373594805
 [State Storage]
-Control Register=63408
+Control Register=63518
 [Sequencer]
-Control Register=63408
-NextState0=63408
-NextState1=63408
+Control Register=63518
+NextState0=63518
+NextState1=63518
 [Action Register]
 Break=1
 State Storage=1
@@ -45,10 +45,6 @@ UseTrigger=1
 TriggerName=main
 LimitSize=0
 ByteLimit=50
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -56,9 +52,13 @@ LogFile=_ ""
 Enabled=0
 [DriverProfiling]
 Enabled=0
-Mode=2122219134
+Mode=1007747628
 Graph=0
 Symbiont=0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [Breakpoints]
 Count=0
 [FET]

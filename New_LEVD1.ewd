@@ -240,7 +240,7 @@
         </option>
         <option>
           <name>TargetSettlingtime</name>
-          <state>0</state>
+          <state>10</state>
         </option>
         <option>
           <name>AllowAccessToBSL</name>
