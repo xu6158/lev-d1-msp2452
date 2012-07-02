@@ -59,13 +59,13 @@ void DisplayCapacity(unsigned char capacity, char isOn)
   if(isOn)
   {
     if(capacity <= CAPACITY_1){
-      P2OUT = LED_CAPACITY_1;
+      P2OUT |= LED_CAPACITY_1;
     }else if(capacity <= CAPACITY_2){
-      P2OUT = LED_CAPACITY_2;
+      P2OUT |= LED_CAPACITY_2;
     }else if(capacity <= CAPACITY_3){
-      P2OUT = LED_CAPACITY_3;
+      P2OUT |= LED_CAPACITY_3;
     }else{
-      P2OUT = LED_CAPACITY_4;
+      P2OUT |= LED_CAPACITY_4;
     }
     G_Activate_Action_Status |= CAPACITY_DISLALY;
   }

@@ -986,7 +986,7 @@
         </option>
         <option>
           <name>OGChipSelectMenu</name>
-          <state>MSP430F149	MSP430F149</state>
+          <state>MSP430G2452	MSP430G2452</state>
         </option>
         <option>
           <name>GStackHeapOverride</name>
@@ -1006,7 +1006,7 @@
         </option>
         <option>
           <name>GHeap20Size</name>
-          <state>###Uninitialized###</state>
+          <state>80</state>
         </option>
         <option>
           <name>GeneralMisraRules98</name>
@@ -1110,7 +1110,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>11111</state>
+          <state>00000</state>
         </option>
         <option>
           <name>CCObjUseModuleName</name>
@@ -1230,7 +1230,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>3</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -1239,7 +1239,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>3</state>
+          <state>1</state>
         </option>
         <option>
           <name>CInput</name>
@@ -1411,7 +1411,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.r43</state>
         </option>
         <option>
           <name>AMultibyteSupport</name>
@@ -1477,7 +1477,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state>templproj.txt</state>
+          <state>New_LEVD1.txt</state>
         </option>
         <option>
           <name>OutputFormat</name>
@@ -1663,15 +1663,15 @@
         </option>
         <option>
           <name>GenerateExtraOutput</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>XExtraOutOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>ExtraOutputFile</name>
-          <state>templproj.a43</state>
+          <state>New_LEVD1.a43</state>
         </option>
         <option>
           <name>ExtraOutputFormat</name>

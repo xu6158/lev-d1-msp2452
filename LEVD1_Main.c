@@ -591,7 +591,8 @@ unsigned char Suspend_Func(){
 
   while(1){
     setMosFET(MOSFET_CHG, DeviceOff);
-    //setMosFET(MOSFET_DSG, DeviceOff);
+    
+    setMosFET(MOSFET_DSG, DeviceOff);
     ///////////////////////////////////////////////////////
     //解決 BUTTON_LONG_PRESS 進入 SuspendMode 時，
     // BUTTON_CLICK 無作用.
