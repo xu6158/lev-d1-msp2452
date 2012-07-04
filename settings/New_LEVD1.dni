@@ -1,11 +1,11 @@
 [DebugChecksum]
-Checksum=1388154460
+Checksum=1569125673
 [State Storage]
-Control Register=63198
+Control Register=63898
 [Sequencer]
-Control Register=63198
-NextState0=63198
-NextState1=63198
+Control Register=63898
+NextState0=63898
+NextState1=63898
 [Action Register]
 Break=1
 State Storage=1
@@ -56,7 +56,7 @@ LogFile=_ ""
 Enabled=0
 [DriverProfiling]
 Enabled=0
-Mode=1
+Mode=1380075852
 Graph=0
 Symbiont=0
 [Breakpoints]

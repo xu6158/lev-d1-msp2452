@@ -17,20 +17,20 @@
 #define CALIBRATION_SEGMENT   Flash_segment_C
 
 #define MANUFACTURE_DATE_YEAR   2012
-#define MANUFACTURE_DATE_MONTH  5
-#define MANUFACTURE_DATE_DAY    31
+#define MANUFACTURE_DATE_MONTH  7
+#define MANUFACTURE_DATE_DAY    3
 #define PRODUCT_NAME            "LEV"
 #define PRODUCT_NAME_LENGTH     3
 
-#define Serial_Number                       3600
+#define Serial_Number                       3601
 #define Version		                          30
-#define MinorVersion		                    0
-
+#define MinorVersion		                    2
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-#define OC_PROTECTION_DELAY_LOOP_COUNT  100 //about 1 sec = 100
+#define OC_PROTECTION_DELAY_LOOP_COUNT  100
 #define OV_PROTECTION_DELAY_LOOP_COUNT  300 //about 3 sec = 300
 #define UV_PROTECTION_DELAY_LOOP_COUNT  300 //about 3 sec = 300
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // LEV System Initial config Data
@@ -59,16 +59,16 @@
 // _CHG_10mA_to_ADC_factor_  0.9280f   ==> CHG_mA_to_ADC_factor * 10
 // CHG_OP_ADC_OFFSET         (signed char)0    //實際值-理論值 
 ////////////////////////////////////////////////////////////////
-// DSG_OP_Gain   120.0f
-// _DSG_mA_to_ADC_factor_      0.163839f  ==> (Rsense*DSG_OP_Gain/ADC_Step/1000)==>小數點6位
-// _DSG_10mA_to_ADC_factor_    1.63839f  ==> DSG_mA_to_ADC_factor * 10
+// DSG_OP_Gain   68.0f
+// _DSG_mA_to_ADC_factor_      0.0928f  ==> (Rsense*DSG_OP_Gain/ADC_Step/1000)==>小數點6位
+// _DSG_10mA_to_ADC_factor_    0.928f  ==> DSG_mA_to_ADC_factor * 10
 // DSG_OP_ADC_OFFSET         (signed char)0    //實際值-理論值 
 // 理論值 = 實際值 - Offset
 ////////////////////////////////////////////////////////////////////////////////
 //(無條件進位==> 會比實際值還大一點)
 //(使用四捨五入)
-#define _ADC_DETECT_CURRENT_OF_DSG_STATUS_     7      //40mA; unit: mA; 2bytes; if current > the define, in discharging status
-#define _ADC_DETECT_CURRENT_OF_CHG_STATUS_     9     //100mA; unit: mA; 2bytes; if current > the define, in charging status
+#define _ADC_DETECT_CURRENT_OF_DSG_STATUS_     5      //50mA; unit: mA; 2bytes; if current > the define, in discharging status
+#define _ADC_DETECT_CURRENT_OF_CHG_STATUS_     5     //50mA; unit: mA; 2bytes; if current > the define, in charging status
 #define _ADC_DOC_PROTECTION_                   3276   // 20A; unit: 10mA; discharging current protection is positive
 #define _ADC_COC_PROTECTION_                   371    // 4A; unit: 10mA; charging current protection
 //#define _ADC_COC_PROTECTION_                   278    // 3A; unit: 10mA; charging current protection
@@ -159,11 +159,11 @@
 // Battery for a cell capacity ==> 2600 mAH * 4p
 // 0.5C DSG = 1300 mA, 1C DSG = 2600 mA, 2C DSG = 5200 mA
 // 4p cell==> 0.5C DSG = 5200 mA, 1C DSG = 10400 mA, 2C DSG = 20800 mA
-//  _DSG_mA_to_ADC_factor_      0.163839f (參考上面之設定)
+//  _DSG_mA_to_ADC_factor_      0.09280f (參考上面之設定)
 // ADC 10 bit==> max adc = 1024
-#define _ADC_LOOKUP_1st_OCV_CURRENT_RANGE_     425    // 2600mA; 2bytes;  CURRENT_OF_DSG_STATUS ~ 2600mA for 4p cell==>OCV
-#define _ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_     1010    //==>(1010=6164mA) 7800mA; 2bytes; 2600mA ~ 7800mA for 4p cell==>0.5C
-#define _ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_     2555   // 15600mA; 2bytes; 7800mA ~ 15600mA 以上 for 4p cell==1C
+#define _ADC_LOOKUP_1st_OCV_CURRENT_RANGE_     241    // 2600mA; 2bytes;  CURRENT_OF_DSG_STATUS ~ 2600mA for 4p cell==>OCV
+#define _ADC_LOOKUP_2nd_OCV_CURRENT_RANGE_     723    // 7800mA; 2bytes; 2600mA ~ 7800mA for 4p cell==>0.5C
+#define _ADC_LOOKUP_3rd_OCV_CURRENT_RANGE_     1447   // 15600mA; 2bytes; 7800mA ~ 15600mA 以上 for 4p cell==1C
 //=====================================================================================================================
 //=====================================================================================================================
 
@@ -252,7 +252,7 @@
 #define _MANUFACTURE_DATE_                    (MANUFACTURE_DATE_YEAR - 1980) * 512 + MANUFACTURE_DATE_MONTH * 32 + MANUFACTURE_DATE_DAY
 
 #define _CHG_mA_To_ADC_Factor_          0.09280f        // 4 bytes;
-#define _DSG_mA_To_ADC_Factor_          0.163839f       // 4 bytes;
+#define _DSG_mA_To_ADC_Factor_          0.09280f       // 4 bytes;
 #define _VBAT_mV_To_ADC_Factor_         0.016962f        // 4 bytes;
 #define _Thermistor_mV_To_ADC_Factor_   0.4096f         // 4 bytes; = 1/ADC_Step
 #define _CHG_OP_ADC_OFFSET_             0      //1byte ; 實際值-理論值 (signed char)

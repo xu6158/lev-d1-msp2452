@@ -8,9 +8,13 @@
 
 //#define _half_1_second_count_     10  // 10 * 50ms = 500ms = 0.5 sec
 //#define _1_second_count_          20  // 20 * 50ms = 1000ms = 1 sec
+#if _5LEDs_No_Separate_Display_ == 0 
 #define _half_1_second_count_     50  // 50 * 10ms = 500ms = 0.5 sec
 #define _1_second_count_          100  // 100 * 10ms = 1000ms = 1 sec
-
+#else
+#define _half_1_second_count_     100  // 100 * 5ms = 500ms = 0.5 sec
+#define _1_second_count_          200  // 200 * 5ms = 1000ms = 1 sec
+#endif
 //////////////////////////////////////////////////////////////////////////////
 unsigned char Half_Timer_Counter;
 unsigned char Timer_Counter;
@@ -28,7 +32,13 @@ void InitTimerA()
   //BCSCTL3 |= LFXT1S_2;                     // ACLK VLO
   //TACCR0 = 624;                              // 50ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
   //TACCR0 = 620;                              // 50ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
+
+#if _5LEDs_No_Separate_Display_ == 0 
   TACCR0 = 120;                              // 10ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
+#else
+  TACCR0 = 60;                              // 5ms; ACLK = ~12KHz; oscilloscope measurement = 11.28KHz
+#endif
+
   //TACTL = TASSEL_2 + MC_1 + TAIE + TACLR;  // SMCLK, upmode, interrupt, reset
   TACTL = TASSEL_1 + MC_1 + TAIE + TACLR;    // ACLK, upmode, interrupt, reset
   

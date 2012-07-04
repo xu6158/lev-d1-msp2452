@@ -2,6 +2,9 @@
 //#include "msp430g2452.h"
 #include "LEV_PrjDefine.h"
 
+
+#if _5LEDs_No_Separate_Display_ == 0 
+
 /******************************************************************\
 | LEV D1 has 4 LEDs                                                |
 | LED #1 (0x08) --> PORT 2.3                                       |
@@ -129,9 +132,7 @@ void DisplayCapacity(unsigned char capacity, char isOn)
 void Display5LEDsCapacityByScanning(){
   DisplayLEDsByScanningOnOff(Show_LED_Codes, (ScanFlag & BIT1));
   ScanFlag ^= BIT1;
-  
 }
-
 void LightOffSequenceByScanning(){
   if(G_Activate_Action_Status_Other1 & LightOff_Seq_LED){
     if(LED_LightOff_Code > No_LED_SHOW){
@@ -206,6 +207,9 @@ void DisplayLEDsByScanningOnOff(unsigned char led_code, unsigned char isOn){
 }
 
 
+
+
+
 void Blink2SeparateLEDs()
 {
   if((G_Activate_Action_Status & CAPACITY_DISLALY)==0){
@@ -217,4 +221,6 @@ void Blink2SeparateLEDs()
   }
   Blink_LED_BIT ^= BIT0;
 }
+#endif
+
 #endif

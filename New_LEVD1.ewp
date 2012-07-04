@@ -1827,6 +1827,9 @@
     <name>$PROJ_DIR$\LEDDisplay_5LEDScan.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\LEDDisplay_5LEDScanFull.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\LEV_CommonDefine.h</name>
   </file>
   <file>

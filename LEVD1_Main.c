@@ -361,7 +361,7 @@ unsigned char Normal_Func(){
     }else if(G_Module_Status & Module_2nd_UV){
         
         /////////////////////////////////////////////////
-        //remove by hsinmo 2012/05/23
+        //remove by hsinmo 2012/05/23, because of retry pack voltage 
         //relese 2nd_UV By Release Voltage
         /////////////////////////////////////////////////
         //setMosFET(MOSFET_DSG, DeviceOff);
@@ -592,7 +592,7 @@ unsigned char Suspend_Func(){
   while(1){
     setMosFET(MOSFET_CHG, DeviceOff);
     
-    setMosFET(MOSFET_DSG, DeviceOff);
+    //setMosFET(MOSFET_DSG, DeviceOff);
     ///////////////////////////////////////////////////////
     //解決 BUTTON_LONG_PRESS 進入 SuspendMode 時，
     // BUTTON_CLICK 無作用.
