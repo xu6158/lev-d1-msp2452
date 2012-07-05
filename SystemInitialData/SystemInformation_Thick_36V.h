@@ -1,3 +1,4 @@
+#include "CommonSysInforDefine.h"
 
 
 /*****************************************************************
@@ -16,15 +17,15 @@
 #define CONFIG_SEGMENT        Flash_segment_B
 #define CALIBRATION_SEGMENT   Flash_segment_C
 
-#define MANUFACTURE_DATE_YEAR   2012
-#define MANUFACTURE_DATE_MONTH  7
-#define MANUFACTURE_DATE_DAY    3
-#define PRODUCT_NAME            "LEV"
-#define PRODUCT_NAME_LENGTH     3
-
-#define Serial_Number                       3601
-#define Version		                          30
-#define MinorVersion		                    2
+//#define MANUFACTURE_DATE_YEAR   2012
+//#define MANUFACTURE_DATE_MONTH  7
+//#define MANUFACTURE_DATE_DAY    3
+#define PRODUCT_NAME            "LEV36"
+#define PRODUCT_NAME_LENGTH     5
+//
+//#define Serial_Number                       3601
+//#define Version		                          30
+//#define MinorVersion		                    2
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #define OC_PROTECTION_DELAY_LOOP_COUNT  100

@@ -268,7 +268,7 @@
         </option>
         <option>
           <name>CRadioAutoManualType</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>ExternalCodeDownload</name>
@@ -407,7 +407,7 @@
         </option>
         <option>
           <name>DdfFileName</name>
-          <state>$TOOLKIT_DIR$\config\MSP430F149.ddf</state>
+          <state>$TOOLKIT_DIR$\config\MSP430G2452.ddf</state>
         </option>
         <option>
           <name>ProcTMS</name>

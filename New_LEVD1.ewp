@@ -1543,7 +1543,7 @@
         </option>
         <option>
           <name>XclFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\lnk430F149.xcl</state>
+          <state>$TOOLKIT_DIR$\CONFIG\lnk430G2452.xcl</state>
         </option>
         <option>
           <name>XclFileSlave</name>
@@ -1788,6 +1788,9 @@
     <name>SystemInitialData</name>
     <file>
       <name>$PROJ_DIR$\SystemInitialData\CalculatingSettingProtectionToADC.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\SystemInitialData\CommonSysInforDefine.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\SystemInitialData\InformationFlashAccess.c</name>

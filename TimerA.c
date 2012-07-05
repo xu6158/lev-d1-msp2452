@@ -57,6 +57,11 @@ void InitTimerA()
   Display_Capacity_Timer_Counter = 0;
 }
 
+void TimerAStop(){
+  TACTL = TASSEL_1 + MC_0 + TACLR;    // ACLK, upmode, interrupt, reset
+  TACCTL1 &= ~CCIE;      // disEnable interrupt, CCR1
+}
+
 // Timer_A3 Interrupt Vector (TA0IV) handler
 #pragma vector=TIMER0_A1_VECTOR
 __interrupt void Timer_A(void)

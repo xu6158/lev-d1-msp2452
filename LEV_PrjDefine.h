@@ -57,7 +57,8 @@ void BlinkLEDs();
 #define DELAY_TIME_10SEC                  200  //delay 10sec
 #define OC_RETRY                          3
 void InitTimerA();
-void InitTimerB();
+void TimerAStop();
+//void InitTimerB();
 //char IsButtonPressed();
 //void ResetOnPress();
 //void ResetOnLongPress();

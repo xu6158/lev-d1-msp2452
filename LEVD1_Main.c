@@ -514,6 +514,7 @@ unsigned char Failure_Func(){
 
 unsigned char Shutdown_Func(){
 
+  unsigned char icount;
   setMosFET(MOSFET_CHG, DeviceOff);
   setMosFET(MOSFET_DSG, DeviceOff);
   //setBlinkLED(LED_SET_ALL, false);
@@ -539,15 +540,36 @@ unsigned char Shutdown_Func(){
   G_Activate_Action_Status = 0;
   //G_Activate_Action_Status_Other1 = 0;
   while(1){
-    if(G_uc_SysModeStatusCode != ShutdownMode){
-      return G_uc_SysModeStatusCode;
-    }
-    if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
-      G_Activate_Action_Status = 0;
-      G_Activate_Action_Status_Other1 = 0;
-      return StartUp;
-    }
-  };
+      TimerAStop();
+      ///////////////////////////////////////////////////////
+      // into Low Power Mode
+      G_Activate_Action_Status_Other1 |= Low_Power_Mode;
+      _BIS_SR(LPM3_bits);                       // Enter LPM3 w/interrupt
+      ///////////////////////////////////////////////////////
+      __delay_cycles(100); 
+      InitTimerA();
+      __delay_cycles(100000);  // 100ms ==> 1MHz clock
+      icount = 0;
+      while(1){
+        if(G_uc_SysModeStatusCode != ShutdownMode){
+          return G_uc_SysModeStatusCode;
+        }
+        if(G_Activate_Action_Status & BUTTON_LONG_PRESS_FLAG){
+          G_Activate_Action_Status = 0;
+          G_Activate_Action_Status_Other1 = 0;
+          return StartUp;
+        }
+        if(icount > 200){
+          icount = 0;
+          break;
+        }else{
+          __delay_cycles(100000);  // 100ms ==> 1MHz clock
+          icount++;
+        }
+      };    
+    
+  }//while(1){
+
   return StartUp;
 }
 unsigned char Calibration_Func(){
