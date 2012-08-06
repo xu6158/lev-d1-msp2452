@@ -9,7 +9,7 @@
 /*! \brief If  Suspend Mode in Main Function should be enabled */
 #define _SUSPEND_ENABLE_                                (  1 )
 /*! \brief If  burn-in CALIBRATION data to Flash_segment_C should be enabled */
-#define _BURN_IN_CALIBRATION_SEGMENT_Flash_segment_C_   (  0 )
+#define _BURN_IN_CALIBRATION_SEGMENT_Flash_segment_C_   (  1 )
 /*! \brief If  Erease CALIBRATION data at Flash_segment_C should be enabled */
 #define _Erase_InformationMemory_At_Flash_segment_C_    (  0 )
 /*! \brief Initial Delay 2 sec should be enabled at PRG beginning */ 
